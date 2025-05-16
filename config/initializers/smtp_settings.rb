@@ -3,7 +3,7 @@ SMTP_SETTINGS = {
   authentication: ENV.fetch("SMTP_AUTHENTICATION", "plain"),
   domain: ENV.fetch("SMTP_DOMAIN", "heroku.com"),
   enable_starttls_auto: true,
-  password: ENV.fetch("SMTP_PASSWORD"),
+  password: ENV.fetch("SENDGRID_PASSWORD"),
   port: ENV.fetch("SMTP_PORT", "587"),
-  user_name: ENV.fetch("SMTP_USERNAME")
+  user_name: ENV.fetch("SENDGRID_USERNAME")
 }.freeze
