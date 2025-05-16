@@ -60,7 +60,18 @@ Rails.application.configure do
   # Set host to be used by links generated in mailer templates.
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = { host: 'task-manager-leo-898e46902197.herokuapp.com', protocol: 'https' }
-  config.action_mailer.smtp_settings = SMTP_SETTINGS
+  config.action_mailer.smtp_settings = {
+    address: "smtp.sendgrid.net",
+    authentication: "plain",
+    domain: "heroku.com",
+    enable_starttls_auto: true,
+    port: 587,
+    password: ENV["SMTP_PASSWORD"],
+    user_name: ENV["SMTP_USERNAME"]
+  }
+
+  # Raise delivery errors in development
+  config.action_mailer.raise_delivery_errors = true
 
   # Specify outgoing SMTP server. Remember to add smtp/* credentials via rails credentials:edit.
   # config.action_mailer.smtp_settings = {
