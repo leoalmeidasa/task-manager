@@ -7,7 +7,7 @@
 default: &default
   adapter: sqlite3
   pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 5 } %>
-  conn = PG.connect(ENV['SCHEMATOGO_URL']) if ENV['SCHEMATOGO_URL']
+  conn: PG.connect(ENV['SCHEMATOGO_URL']) if ENV['SCHEMATOGO_URL']
   timeout: 5000
 
 development:
