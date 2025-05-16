@@ -66,8 +66,8 @@ Rails.application.configure do
     domain: "heroku.com",
     enable_starttls_auto: true,
     port: 587,
-    password: ENV["SMTP_PASSWORD"],
-    user_name: ENV["SMTP_USERNAME"]
+    password: ENV["SENDGRID_PASSWORD"],
+    user_name: ENV["SENDGRID_USERNAME"]
   }
 
   # Raise delivery errors in development
