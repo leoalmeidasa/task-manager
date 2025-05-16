@@ -79,8 +79,6 @@
         <p class="text-lg text-gray-200 mb-6">Organize your tasks with ease and efficiency!</p>
         <% unless user_signed_in? %>
           <div class="space-x-4">
-            <%= link_to "Get Started", new_user_registration_path, class: "btn-animated bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700" %>
-            <%= link_to "Learn More", "#", class: "btn-animated bg-gray-200 text-gray-800 px-6 py-3 rounded-lg hover:bg-gray-300" %>
           </div>
         <% else %>
           <p class="text-lg text-gray-200">You're signed in! Start managing your tasks now.</p>
