@@ -27,4 +27,16 @@ test:
 production:
   primary:
     <<: *default
-    database: production
+    database: storage/production
+  cache:
+    <<: *default
+    database: storage/production_cache
+    migrations_paths: db/cache_migrate
+  queue:
+    <<: *default
+    database: storage/production_queue
+    migrations_paths: db/queue_migrate
+  cable:
+    <<: *default
+    database: storage/production_cable
+    migrations_paths: db/cable_migrate
