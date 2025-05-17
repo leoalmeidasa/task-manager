@@ -1,11 +1,11 @@
-en:
+pt:
   projects:
     description: "Descrição"
     created_by: "Criado por"
     untitled: "Projeto sem título"
     no_description: "Nenhuma descrição disponível"
     unknown_user: "Usuário desconhecido"
-    manage_members: "Membros"
+    manage_members: "Gerenciar Membros"
     view_tasks: "Ver Tarefas"
   actions:
     edit: "Editar"
