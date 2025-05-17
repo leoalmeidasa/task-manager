@@ -1,0 +1,36 @@
+<div class="container mt-5">
+  <div class="text-center mb-4">
+    <h2 class="fw-bold text-secondary">
+      <%= @project.persisted? ? 'Editar Projeto' : 'Novo Projeto' %>
+    </h2>
+  </div>
+
+  <%= form_with(model: @project, local: true, html: { class: "shadow p-4 rounded bg-light" }) do |form| %>
+
+    <% if @project.errors.any? %>
+      <div class="alert alert-danger">
+        <h5><%= pluralize(@project.errors.count, "erro") %> encontrado(s):</h5>
+        <ul class="mb-0">
+          <% @project.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="mb-3">
+      <%= form.label :name, "Nome do Projeto", class: "form-label fw-semibold" %>
+      <%= form.text_field :name, class: "form-control", placeholder: "Digite o nome do projeto" %>
+    </div>
+
+    <div class="mb-3">
+      <%= form.label :description, "Descrição", class: "form-label fw-semibold" %>
+      <%= form.text_area :description, class: "form-control", placeholder: "Descreva brevemente o projeto", rows: 4 %>
+    </div>
+
+    <div class="text-end">
+      <%= form.submit (@project.persisted? ? 'Atualizar' : 'Criar Projeto'), class: "btn btn-primary px-4" %>
+    </div>
+
+  <% end %>
+</div>
