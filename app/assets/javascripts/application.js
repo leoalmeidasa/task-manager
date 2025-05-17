@@ -16,3 +16,6 @@
 //= require_tree .
 // app/javascript/packs/application.js
 import "@hotwire/turbo-rails"
+import "controllers"
+import "@popperjs/core"
+import "bootstrap"

@@ -1,0 +1,44 @@
+<div class="container mt-5">
+  <!-- Título com estilo -->
+  <div class="text-center mb-4">
+    <h1 class="display-4 fw-bold text-primary">Gerenciador de Projetos</h1>
+    <p class="lead text-muted">Acompanhe, edite e organize seus projetos com facilidade.</p>
+  </div>
+
+  <!-- Botão de novo projeto -->
+  <div class="d-flex justify-content-end mb-3">
+    <%= link_to '➕ Novo Projeto', new_project_path, class: 'btn btn-success btn-lg' %>
+  </div>
+
+  <!-- Tabela de projetos -->
+  <div class="table-responsive">
+    <table class="table table-hover table-bordered align-middle shadow-sm">
+      <thead class="table-primary text-center">
+      <tr>
+        <th>Nome</th>
+        <th>Descrição</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% if @projects.present? %>
+        <% @projects.each do |project| %>
+          <tr>
+            <td><%= project.name %></td>
+            <td><%= project.description %></td>
+            <td class="text-center">
+              <%= link_to '👁 Ver', project, class: 'btn btn-sm btn-outline-info me-1' %>
+              <%= link_to '✏️ Editar', edit_project_path(project), class: 'btn btn-sm btn-outline-secondary me-1' %>
+              <%= link_to '🗑 Excluir', project, method: :delete, data: { confirm: 'Confirma exclusão?' }, class: 'btn btn-sm btn-outline-danger' %>
+            </td>
+          </tr>
+        <% end %>
+      <% else %>
+        <tr>
+          <td colspan="3" class="text-center text-muted">Nenhum projeto encontrado.</td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  </div>
+</div>
