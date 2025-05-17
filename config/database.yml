@@ -26,16 +26,20 @@ test:
 production:
   primary:
     <<: *default
+    url: ENV['DATABSE-URL']
     database: production
   cache:
     <<: *default
+    url: ENV['DATABSE-URL']
     database: production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
+    url: ENV['DATABSE-URL']
     database: production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
+    url: ENV['DATABSE-URL']
     database: production_cable
     migrations_paths: db/cable_migrate
