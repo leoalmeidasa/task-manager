@@ -1,2 +1,31 @@
-<h1>Home#index</h1>
-<p>Find me in app/views/home/index.html.erb</p>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Task Manager - Bem-vindo</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gradient-to-r from-blue-500 to-indigo-600 min-h-screen flex items-center justify-center">
+<div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
+  <h1 class="text-4xl font-bold text-gray-800 mb-4">Bem-vindo ao Task Manager</h1>
+  <p id="welcomeMessage" class="text-gray-600 mb-6">Organize suas tarefas com facilidade e eficiência!</p>
+</div>
+<script>
+    // Mensagem dinâmica com base no horário
+    const welcomeMessage = document.getElementById('welcomeMessage');
+    const hour = new Date().getHours();
+    let greeting;
+
+    if (hour < 12) {
+        greeting = 'Bom dia! Organize suas tarefas com facilidade e eficiência!';
+    } else if (hour < 18) {
+        greeting = 'Boa tarde! Gerencie suas tarefas com praticidade!';
+    } else {
+        greeting = 'Boa noite! Planeje suas tarefas com eficiência!';
+    }
+
+    welcomeMessage.textContent = greeting;
+</script>
+</body>
+</html>

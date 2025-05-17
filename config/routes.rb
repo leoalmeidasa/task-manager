@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   end
   get "home/index"
   devise_for :users
-  root "projects#index"
+  root "home#index"
   get "up" => "rails/health#show", as: :rails_health_check
 end
