@@ -26,24 +26,16 @@ test:
 production:
   primary:
     <<: *default
-    username: ENV['DATABASE_USER']
-    password: ENV['DATABASE_PASSWORD']
     database: production
   cache:
     <<: *default
-    username: ENV['DATABASE_USER']
-    password: ENV['DATABASE_PASSWORD']
     database: production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    username: ENV['DATABASE_USER']
-    password: ENV['DATABASE_PASSWORD']
     database: production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    username: ENV['DATABASE_USER']
-    password: ENV['DATABASE_PASSWORD']
     database: production_cable
     migrations_paths: db/cable_migrate
