@@ -14,3 +14,19 @@
 //= require activestorage
 //= require turbolinks
 //= require_tree .
+// app/javascript/packs/application.js
+// Importa Turbo e controladores
+import "@hotwired/turbo-rails"
+import "controllers"
+
+// Importa Popper.js e Bootstrap
+import * as Popper from "@popperjs/core"
+import * as Bootstrap from "bootstrap"
+
+// Inicializa componentes do Bootstrap (exemplo: tooltips)
+document.addEventListener("turbo:load", () => {
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new Bootstrap.Tooltip(tooltipTriggerEl)
+    })
+})

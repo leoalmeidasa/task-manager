@@ -6,6 +6,9 @@ gem "rails", "~> 8.0.2"
 gem 'pg'
 gem 'devise'
 gem 'acts_as_tenant'
+# Bootstrap gems
+gem "cssbundling-rails"
+gem 'devise-bootstrap-views'
 # ipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use the Puma web server [https://github.com/puma/puma]

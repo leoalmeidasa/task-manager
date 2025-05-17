@@ -7,6 +7,7 @@
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
   <style>
       /* Updated Button Animations */
@@ -52,7 +53,7 @@
     <div class="space-x-4">
       <% if user_signed_in? %>
         <span class="text-sm font-medium">Welcome, <%= current_user.email %></span>
-        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete }, class: "btn-animated bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" %>
+        <%= link_to "Sign out", destroy_user_session_path, data: { turbo_method: :delete, turbo: false }, class: "btn bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600" %>
       <% else %>
         <%= link_to "Sign in", new_user_session_path, class: "btn bg-white text-blue-600 px-5 py-2.5 hover:bg-gray-100" %>
         <%= link_to "Sign up", new_user_registration_path, class: "btn bg-green-500 text-white px-5 py-2.5 hover:bg-green-600" %>
