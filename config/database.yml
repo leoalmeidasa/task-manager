@@ -26,20 +26,20 @@ test:
 production:
   primary:
     <<: *default
-    url: ENV['DATABASE_URL']
+    url: <%= ENV['DATABASE_URL'] %>
     database: production
   cache:
     <<: *default
-    url: ENV['DATABASE_URL']
+    url: <%= ENV['DATABASE_URL'] %>
     database: production_cache
     migrations_paths: db/cache_migrate
   queue:
     <<: *default
-    url: ENV['DATABASE_URL']
+    url: <%= ENV['DATABASE_URL'] %>
     database: production_queue
     migrations_paths: db/queue_migrate
   cable:
     <<: *default
-    url: ENV['DATABASE_URL']
+    url: <%= ENV['DATABASE_URL'] %>
     database: production_cable
     migrations_paths: db/cable_migrate
