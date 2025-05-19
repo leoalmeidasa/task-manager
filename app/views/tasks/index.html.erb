@@ -1,0 +1,31 @@
+<h1>Tarefas do Projeto: <%= @project.name %></h1>
+<%= link_to "Nova Tarefa", new_project_task_path(@project), class: "btn btn-primary mb-3" %>
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Título</th>
+    <th>Status</th>
+    <th>Prioridade</th>
+    <th>Data de Vencimento</th>
+    <th>Responsável</th>
+    <th>Ações</th>
+  </tr>
+  </thead>
+  <tbody>
+  <% @tasks.each do |task| %>
+    <tr>
+      <td><%= task.title %></td>
+      <td><%= task.status.name %></td>
+      <td><%= task.priority.level %></td>
+      <td><%= task.due_date %></td>
+      <td><%= task.user&.email %></td>
+      <td>
+        <%= link_to "Ver", project_task_path(@project, task), class: "btn btn-sm btn-info" %>
+        <%= link_to "Editar", edit_project_task_path(@project, task), class: "btn btn-sm btn-warning" %>
+        <%= link_to "Excluir", project_task_path(@project, task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "btn btn-sm btn-danger" %>
+      </td>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+<%= link_to "Voltar", projects_path, class: "btn btn-secondary" %>

@@ -30,7 +30,8 @@
               <td class="text-center action-buttons">
                 <%= link_to '👁 Ver', project, class: 'btn btn-sm btn-outline-info d-inline-block' %>
                 <%= link_to '✏️ Editar', edit_project_path(project), class: 'btn btn-sm btn-outline-secondary d-inline-block' %>
-                <%= link_to '🗑 Excluir', project, method: :delete, data: { confirm: 'Confirma exclusão?' }, class: 'btn btn-sm btn-outline-danger d-inline-block' %>
+                <%= button_to '🗑 Excluir', project_path(project), method: :delete, data: { confirm: 'Tem certeza?' },
+                              form: { class: 'd-inline' }, class: 'btn btn-sm btn-outline-danger' %>
               </td>
             </tr>
           <% end %>

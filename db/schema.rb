@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.0].define(version: 2025_05_17_132139) do
+ActiveRecord::Schema[8.0].define(version: 2025_05_19_194230) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "pg_catalog.plpgsql"
 
@@ -49,6 +49,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_132139) do
     t.index ["blob_id", "variation_digest"], name: "index_active_storage_variant_records_uniqueness", unique: true
   end
 
+  create_table "priorities", force: :cascade do |t|
+    t.string "level", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["level"], name: "index_priorities_on_level", unique: true
+  end
+
   create_table "project_members", force: :cascade do |t|
     t.bigint "project_id", null: false
     t.bigint "user_id", null: false
@@ -68,6 +75,13 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_132139) do
     t.index ["user_id"], name: "index_projects_on_user_id"
   end
 
+  create_table "statuses", force: :cascade do |t|
+    t.string "name", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_statuses_on_name", unique: true
+  end
+
   create_table "tasks", force: :cascade do |t|
     t.string "title", null: false
     t.text "description"
@@ -78,7 +92,11 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_132139) do
     t.bigint "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "status_id"
+    t.bigint "priority_id"
+    t.index ["priority_id"], name: "index_tasks_on_priority_id"
     t.index ["project_id"], name: "index_tasks_on_project_id"
+    t.index ["status_id"], name: "index_tasks_on_status_id"
     t.index ["user_id"], name: "index_tasks_on_user_id"
   end
 
@@ -99,6 +117,8 @@ ActiveRecord::Schema[8.0].define(version: 2025_05_17_132139) do
   add_foreign_key "project_members", "projects"
   add_foreign_key "project_members", "users"
   add_foreign_key "projects", "users"
+  add_foreign_key "tasks", "priorities"
   add_foreign_key "tasks", "projects"
+  add_foreign_key "tasks", "statuses"
   add_foreign_key "tasks", "users"
 end

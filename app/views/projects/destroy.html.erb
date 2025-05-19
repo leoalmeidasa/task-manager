@@ -1,2 +1,52 @@
-<h1>Projects#destroy</h1>
-<p>Find me in app/views/projects/destroy.html.erb</p>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Delete Project</h2>
+
+          <% if flash[:alert] %>
+            <div class="alert alert-danger" role="alert" aria-live="assertive">
+              <%= flash[:alert] %>
+            </div>
+          <% end %>
+
+          <p class="text-center text-gray-600 mb-4">
+            Are you sure you want to delete the project <strong><%= @project.name %></strong>? This action cannot be undone.
+          </p>
+
+          <%= form_with(model: @project, url: project_path(@project), method: :delete, html: { class: "d-flex flex-column gap-3", data: { turbo: false } }) do |f| %>
+            <div class="d-flex justify-content-between gap-3">
+              <%= link_to "Cancel", projects_path, class: "btn btn-outline-secondary w-100 py-2 rounded-md transition-all duration-300 hover:bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" %>
+              <%= f.submit "Delete Project", class: "btn btn-danger w-100 py-2 rounded-md transition-all duration-300 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2", id: "deleteBtn", data: { disable_with: "Deleting..." } %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+    .btn-danger {
+        background-color: #dc2626;
+        border-color: #dc2626;
+    }
+    .btn-danger:hover {
+        background-color: #b91c1c;
+        border-color: #b91c1c;
+    }
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    .animate__fadeIn {
+        animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>

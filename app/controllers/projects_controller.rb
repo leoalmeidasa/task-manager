@@ -36,8 +36,12 @@ class ProjectsController < ApplicationController
   end
 
   def destroy
-    @project.destroy
-    redirect_to projects_url, notice: 'Projeto excluído com sucesso.'
+    @project = Project.find(params[:id])
+    if @project.destroy
+      redirect_to projects_path, notice: 'Projeto excluído com sucesso.'
+    else
+      redirect_to projects_path, alert: 'Falha ao excluir o projeto.'
+    end
   end
 
   private

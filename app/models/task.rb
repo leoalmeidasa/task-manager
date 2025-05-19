@@ -1,18 +1,25 @@
 class Task < ApplicationRecord
   belongs_to :project
   belongs_to :user, optional: true
-  has_many_attached :files
+  has_many_attached :attachments
+  belongs_to :status
+  belongs_to :priority
 
   validates :title, presence: true
-  validates :status, inclusion: { in: %w[pending in_progress completed] }
-  validates :priority, inclusion: { in: %w[low medium high] }
+  validate :status_name_must_be_valid
+  validate :priority_level_must_be_valid
 
-  after_initialize :set_defaults, unless: :persisted?
+  def priority_level_must_be_valid
+    allowed_levels = %w[low medium high]
+    if priority && !allowed_levels.include?(priority.level)
+      errors.add(:priority, "deve ser low, medium ou high")
+    end
+  end
 
-  private
-
-  def set_defaults
-    self.status ||= 'pending'
-    self.priority ||= 'medium'
+  def status_name_must_be_valid
+    allowed_names = %w[pending in_progress completed]
+    if status && !allowed_names.include?(status.name)
+      errors.add(:priority, "deve ser low, medium ou high")
+    end
   end
 end
