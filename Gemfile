@@ -7,6 +7,8 @@ gem "rails", "~> 8.0.2"
 gem 'pg'
 gem 'devise'
 gem 'acts_as_tenant'
+# Gem pagy
+gem 'pagy', '~> 9.0'
 # Bootstrap gems
 gem 'devise-bootstrap-views'
 # ipeline for Rails [https://github.com/rails/propshaft]

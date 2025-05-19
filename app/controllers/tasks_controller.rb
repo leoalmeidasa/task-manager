@@ -4,7 +4,8 @@ class TasksController < ApplicationController
   before_action :authorize_task, only: %i[show edit update destroy]
 
   def index
-    @tasks = @project.tasks
+    @project = Project.find(params[:project_id])
+    @pagy, @tasks = pagy(@project.tasks, items: 10)
   end
 
   def show
