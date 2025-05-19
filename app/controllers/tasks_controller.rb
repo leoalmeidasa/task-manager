@@ -25,11 +25,9 @@ class TasksController < ApplicationController
   end
 
   def edit
-    authorize @task
   end
 
   def update
-    authorize @task
     if @task.update(task_params)
       redirect_to project_task_path(@project, @task), notice: "Tarefa atualizada com sucesso."
     else
@@ -38,7 +36,6 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    authorize @task
     @task.destroy
     redirect_to project_tasks_path(@project), notice: "Tarefa excluída com sucesso."
   end

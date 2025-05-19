@@ -1,2 +1,56 @@
-<h1>Tasks#show</h1>
-<p>Find me in app/views/tasks/show.html.erb</p>
+<div class="container mt-4">
+  <h1>Tarefa: <%= @task.title %></h1>
+  <div class="card mb-4">
+    <div class="card-header">
+      <h5 class="card-title mb-0">Detalhes da Tarefa</h5>
+    </div>
+    <div class="card-body">
+      <div class="row">
+        <div class="col-md-6">
+          <p><strong>Título:</strong> <%= @task.title %></p>
+          <p><strong>Descrição:</strong> <%= @task.description || "Sem descrição" %></p>
+          <p><strong>Status:</strong> <span class="badge bg-<%= @task.status == 'completed' ? 'success' :
+                                                                  @task.status == 'in_progress' ? 'warning' :
+                                                                    'secondary'%>"><%=@task.status.name%></span></p>
+        </div>
+        <div class="col-md-6">
+          <p><strong>Prioridade:</strong> <span class="badge bg-<%= @task.priority == 'high' ? 'danger' :
+                                                                      @task.priority == 'medium' ? 'warning'
+                                                                        : 'info' %>"><%= @task.priority.level %></span></p>
+          <p><strong>Data de Vencimento:</strong> <%= @task.due_date || "Não definida" %></p>
+          <p><strong>Responsável:</strong> <%= @task.user&.email || "Nenhum" %></p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <% if @task.attachments.any? %>
+    <h3>Anexos</h3>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Nome do Arquivo</th>
+        <th>Ações</th>
+      </tr>
+      </thead>
+      <tbody>
+      <% @task.attachments.each do |attachment| %>
+        <tr>
+          <td><%= attachment.filename %></td>
+          <td>
+            <%= link_to "Download", rails_blob_path(attachment, disposition: "attachment"), class: "btn btn-sm btn-primary" %>
+          </td>
+        </tr>
+      <% end %>
+      </tbody>
+    </table>
+  <% else %>
+    <div class="alert alert-info">Nenhum anexo disponível.</div>
+  <% end %>
+
+  <div class="mt-3">
+    <%= link_to "Editar", edit_project_task_path(@project, @task), class: "btn btn-warning" %>
+    <%= link_to "Excluir", project_task_path(@project, @task), data: { turbo_method: :delete, turbo_confirm: "Tem certeza?" }, class: "btn btn-danger" %>
+    <%= link_to "Voltar", project_tasks_path(@project), class: "btn btn-secondary" %>
+  </div>
+</div>

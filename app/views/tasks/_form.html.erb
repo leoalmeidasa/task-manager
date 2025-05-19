@@ -22,10 +22,6 @@
     <%= form.date_field :due_date, class: "form-control" %>
   </div>
   <div class="mb-3">
-    <%= form.label :user_id, "Responsável", class: "form-label" %>
-    <%= form.collection_select :user_id, @project.members, :id, :name, { include_blank: "Nenhum" }, class: "form-select" %>
-  </div>
-  <div class="mb-3">
     <%= form.label :attachments, class: "form-label" %>
     <%= form.file_field :attachments, multiple: true, class: "form-control" %>
   </div>
