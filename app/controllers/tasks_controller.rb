@@ -5,7 +5,7 @@ class TasksController < ApplicationController
 
   def index
     @project = Project.find(params[:project_id])
-    @pagy, @tasks = pagy(@project.tasks, items: 10)
+    @pagy, @tasks = pagy(@project.tasks, items: 2)
   end
 
   def show
