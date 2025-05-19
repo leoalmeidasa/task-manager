@@ -15,24 +15,28 @@
               <div id="emailError" class="invalid-feedback">Please enter a valid email.</div>
             </div>
 
-            <div class="mb-3 position-relative">
+            <div class="mb-3">
               <%= f.label :password, class: "form-label text-sm font-medium text-gray-700" %>
               <% if @minimum_password_length %>
                 <span class="form-text text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</span>
               <% end %>
-              <%= f.password_field :password, autocomplete: "new-password", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "passwordError" %>
-              <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y mt-1 me-2" onclick="togglePassword('resource_password')" aria-label="Toggle password visibility">
-                <i class="bi bi-eye"></i>
-              </button>
+              <div class="input-group">
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_field" %>
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
               <div id="passwordError" class="invalid-feedback">Password is required.</div>
             </div>
 
-            <div class="mb-3 position-relative">
+            <div class="mb-3">
               <%= f.label :password_confirmation, class: "form-label text-sm font-medium text-gray-700" %>
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "passwordConfirmationError" %>
-              <button type="button" class="btn btn-outline-secondary position-absolute end-0 top-50 translate-middle-y mt-1 me-2" onclick="togglePassword('resource_password_confirmation')" aria-label="Toggle password confirmation visibility">
-                <i class="bi bi-eye"></i>
-              </button>
+              <div class="input-group">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_confirmation_field" %>
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
               <div id="passwordConfirmationError" class="invalid-feedback">Password confirmation is required.</div>
             </div>
 
@@ -75,17 +79,17 @@
 </style>
 
 <script>
-    function togglePassword(fieldId) {
-        const field = document.querySelector(`#${fieldId}`);
-        const toggleBtn = field.nextElementSibling.querySelector('.bi');
-        if (field.type === 'password') {
-            field.type = 'text';
-            toggleBtn.classList.remove('bi-eye');
-            toggleBtn.classList.add('bi-eye-slash');
+    function togglePassword(button) {
+        const passwordField = button.previousElementSibling;
+        const icon = button.querySelector('.bi');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
         } else {
-            field.type = 'password';
-            toggleBtn.classList.remove('bi-eye-slash');
-            toggleBtn.classList.add('bi-eye');
+            passwordField.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
         }
     }
 </script>
