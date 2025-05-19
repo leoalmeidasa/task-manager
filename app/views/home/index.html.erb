@@ -1,31 +1,69 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Manager - Bem-vindo</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gradient-to-r from-blue-500 to-indigo-600 min-h-screen flex items-center justify-center">
-<div class="bg-white p-8 rounded-lg shadow-lg max-w-md w-full text-center">
-  <h1 class="text-4xl font-bold text-gray-800 mb-4">Bem-vindo ao Task Manager</h1>
-  <p id="welcomeMessage" class="text-gray-600 mb-6">Organize suas tarefas com facilidade e eficiência!</p>
+<div class="card shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h2 class="card-title mb-0">Meus Projetos</h2>
+  </div>
+  <div class="card-body">
+    <!-- Título com estilo -->
+    <div class="text-center mb-4">
+      <h3 class="fw-bold text-primary">Gerenciador de Projetos</h3>
+      <p class="lead text-muted">Acompanhe, edite e organize seus projetos com facilidade.</p>
+    </div>
+
+    <!-- Botão de novo projeto -->
+    <div class="d-flex justify-content-end mb-3">
+      <%= link_to new_project_path, class: 'btn btn-success' do %>
+        <i class="bi bi-plus-circle me-1"></i> Novo Projeto
+      <% end %>
+    </div>
+
+    <!-- Tabela de projetos -->
+    <div class="table-responsive">
+      <table class="table table-hover table-bordered align-middle shadow-sm">
+        <thead class="table-primary text-center">
+        <tr>
+          <th>Nome</th>
+          <th>Descrição</th>
+          <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <% if @projects.present? %>
+          <% @projects.each do |project| %>
+            <tr>
+              <td><%= project.name %></td>
+              <td><%= project.description %></td>
+              <td class="text-center">
+                <div class="btn-group" role="group">
+                  <%= link_to project, class: 'btn btn-sm btn-outline-info' do %>
+                    <i class="bi bi-eye"></i>
+                  <% end %>
+                  <%= link_to edit_project_path(project), class: 'btn btn-sm btn-outline-secondary' do %>
+                    <i class="bi bi-pencil"></i>
+                  <% end %>
+                  <%= link_to project, method: :delete, data: { turbo_method: :delete, turbo_confirm: 'Tem certeza que deseja excluir este projeto?' }, class: 'btn btn-sm btn-outline-danger' do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
+                </div>
+              </td>
+            </tr>
+          <% end %>
+        <% else %>
+          <tr>
+            <td colspan="3" class="text-center text-muted">
+              <div class="py-4">
+                <i class="bi bi-folder-x fs-1 d-block mb-2"></i>
+                Nenhum projeto encontrado.
+                <div class="mt-2">
+                  <%= link_to new_project_path, class: 'btn btn-primary btn-sm' do %>
+                    <i class="bi bi-plus-circle me-1"></i> Criar meu primeiro projeto
+                  <% end %>
+                </div>
+              </div>
+            </td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
 </div>
-<script>
-    // Mensagem dinâmica com base no horário
-    const welcomeMessage = document.getElementById('welcomeMessage');
-    const hour = new Date().getHours();
-    let greeting;
-
-    if (hour < 12) {
-        greeting = 'Bom dia! Organize suas tarefas com facilidade e eficiência!';
-    } else if (hour < 18) {
-        greeting = 'Boa tarde! Gerencie suas tarefas com praticidade!';
-    } else {
-        greeting = 'Boa noite! Planeje suas tarefas com eficiência!';
-    }
-
-    welcomeMessage.textContent = greeting;
-</script>
-</body>
-</html>

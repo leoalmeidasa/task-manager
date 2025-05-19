@@ -1,93 +1,44 @@
-<head>
-  <!-- Bootstrap CSS -->
-  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-  <!-- Bootstrap JS and Popper.js -->
-  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-  <style>
-      /* Custom styles for fixed sidebar and responsive content */
-      html, body {
-          height: 100%;
-          margin: 0;
-          overflow-x: hidden;
-      }
-      #sidebar-project {
-          min-width: 200px;
-          max-width: 250px;
-          height: calc(100vh - 55px); /* Adjust 56px to match your navbar height */
-          position: fixed;
-          top: 80px; /* Offset to start below navbar */
-          left: 0;
-          z-index: 1000;
-          background-color: #1e1f22;
-      }
-      #content {
-          margin-left: 20px;
-          padding: 20px;
-      }
-      /* Mobile screens */
-      @media (max-width: 768px) {
-          #sidebar-project {
-              min-width: 200px; /* Slightly narrower on mobile for better usability */
-              max-width: 200px;
-          }
-          #content {
-              margin-left: 200px;
-              width: calc(100% - 20px);
-          }
-      }
-      /* Responsive container */
-      .container {
-          max-width: 100%;
-          padding-left: 15px;
-          padding-right: 15px;
-      }
-  </style>
-</head>
-<body>
-<!-- Sidebar -->
-<nav id="sidebar-project" class="text-white">
-  <div class="p-4">
-    <h4 class="text-white">Menu</h4>
-    <ul class="nav flex-column">
-      <li class="nav-item">
-        <a class="nav-link text-white" href="<%= projects_path %>">🏠 Projetos</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="<%= new_project_path %>">➕ Novo Projeto</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">📊 Relatórios</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link text-white" href="#">⚙️ Configurações</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-</body>
-<%= form_with(model: @project, local: true) do |form| %>
-  <% if @project.errors.any? %>
-    <div>
-      <h2><%= pluralize(@project.errors.count, "erro") %> encontrado(s):</h2>
-      <ul>
-        <% @project.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-      </ul>
+<div class="content">
+  <div class="container mt-5">
+    <!-- Form Title -->
+    <div class="text-center mb-4">
+      <h1 class="display-4 fw-bold text-primary">
+        <%= @project.new_record? ? "Novo Projeto" : "Editar Projeto" %>
+      </h1>
     </div>
-  <% end %>
 
-  <div>
-    <%= form.label :name %>
-    <%= form.text_field :name %>
-  </div>
+    <!-- Form -->
+    <%= form_with(model: @project, local: true, class: "needs-validation", novalidate: true) do |form| %>
+      <% if @project.errors.any? %>
+        <div class="alert alert-danger" role="alert">
+          <h4 class="alert-heading"><%= pluralize(@project.errors.count, "erro") %> encontrado(s):</h4>
+          <ul class="mb-0">
+            <% @project.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+          </ul>
+        </div>
+      <% end %>
 
-  <div>
-    <%= form.label :description %>
-    <%= form.text_area :description %>
-  </div>
+      <div class="form-group">
+        <%= form.label :name, class: "form-label fw-bold" %>
+        <%= form.text_field :name, class: "form-control", required: true %>
+        <div class="invalid-feedback">
+          Por favor, insira o nome do projeto.
+        </div>
+      </div>
 
-  <div>
-    <%= form.submit %>
+      <div class="form-group">
+        <%= form.label :description, class: "form-label fw-bold" %>
+        <%= form.text_area :description, class: "form-control", rows: 5 %>
+      </div>
+
+      <div class="d-flex justify-content-end gap-2">
+        <%= form.submit class: "btn btn-primary btn-lg" %>
+        <%= link_to 'Cancelar', projects_path, class: 'btn btn-secondary btn-lg' %>
+      </div>
+    <% end %>
   </div>
-<% end %>
+</div>
+</body>
+</html>
