@@ -20,7 +20,7 @@ class ReplaceStatusAndPriorityInTasks < ActiveRecord::Migration[7.1]
   #   # Garante que status_id e priority_id não aceitem nulo
   #   change_column_null :tasks, :status_id, false
   #   change_column_null :tasks, :priority_id, false
-  # end
+  end
 
   def down
     # Recria as colunas antigas
