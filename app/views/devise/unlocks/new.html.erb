@@ -5,7 +5,7 @@
         <div class="card-body p-4 p-md-5">
           <h2 class="text-2xl font-bold text-gray-800 text-center mb-4"><%= t('devise.passwords.new.forgot_password') %></h2>
 
-          <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post, class: "d-flex flex-column gap-3" }) do |f| %>
+          <%= form_for(resource, as: resource_name, url: user_password_path(resource_name), html: { method: :post, class: "d-flex flex-column gap-3" }) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
             <div class="mb-3">

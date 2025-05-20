@@ -3,6 +3,7 @@ class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   before_action :set_locale
   before_action :set_cors_headers
+  protect_from_forgery with: :null_session, if: Proc.new { |c| c.request.format.json? }
 
   def after_sign_in_path_for(resource)
     projects_path if resource.present?
