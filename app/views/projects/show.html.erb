@@ -1,3 +1,4 @@
+<!-- app/views/projects/show.html.erb -->
 <div class="card shadow-sm">
   <div class="card-header bg-primary text-white">
     <h2 class="card-title mb-0"><%= @project.name.present? ? @project.name : 'Projeto sem título' %></h2>
@@ -39,9 +40,11 @@
                 <% end %>
               <% end %>
 
-              <%#= link_to project_project_members_path(@project), class: "btn btn-secondary mb-2" do %>
-<!--                <i class="bi bi-people me-1"></i> Gerenciar Membros-->
-              <%# end %>
+              <% if user_signed_in? %>
+                <%= link_to project_project_members_path(@project), class: "btn btn-secondary mb-2" do %>
+                  <i class="bi bi-people me-1"></i> Gerenciar Membros
+                <% end %>
+              <% end %>
 
               <%= link_to projects_path, class: "btn btn-outline-secondary" do %>
                 <i class="bi bi-arrow-left me-1"></i> Voltar

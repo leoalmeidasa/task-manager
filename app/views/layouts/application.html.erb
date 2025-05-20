@@ -191,12 +191,6 @@
         <a href="/projects"><i class="bi bi-kanban me-2"></i>Projetos</a>
       </li>
         <li>
-          <a href="#"><i class="bi bi-person me-2"></i>Meu Perfil</a>
-        </li>
-        <li>
-          <a href="#"><i class="bi bi-gear me-2"></i>Configurações</a>
-        </li>
-        <li>
           <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo: false } do %>
             <i class="bi bi-box-arrow-right me-2"></i>Sair
           <% end %>
