@@ -216,7 +216,6 @@ GEM
       racc (~> 1.4)
     orm_adapter (0.5.0)
     ostruct (0.6.1)
-    pagy (9.3.4)
     parallel (1.27.0)
     parser (3.3.8.0)
       ast (~> 2.4.1)
@@ -240,6 +239,9 @@ GEM
     raabro (1.4.0)
     racc (1.8.1)
     rack (3.1.14)
+    rack-cors (3.0.0)
+      logger
+      rack (>= 3.0.14)
     rack-session (2.1.1)
       base64 (>= 0.1.0)
       rack (>= 3.0.0)
@@ -411,10 +413,10 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   kamal
-  pagy (~> 9.0)
   pg
   propshaft
   puma (>= 5.0)
+  rack-cors
   rails (~> 8.0.2)
   rails_12factor
   rubocop-rails-omakase

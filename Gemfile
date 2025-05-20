@@ -7,8 +7,8 @@ gem "rails", "~> 8.0.2"
 gem 'pg'
 gem 'devise'
 gem 'acts_as_tenant'
-# Gem pagy
-gem 'pagy', '~> 9.0'
+# Gem cors
+gem 'rack-cors'
 # Gem aws
 gem "aws-sdk-s3", require: false
 # Bootstrap gems
