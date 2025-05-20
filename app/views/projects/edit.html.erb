@@ -1,44 +1,83 @@
-<div class="content">
-  <div class="container mt-5">
-    <!-- Form Title -->
-    <div class="text-center mb-4">
-      <h1 class="display-4 fw-bold text-primary">
-        <%= @project.new_record? ? "Novo Projeto" : "Editar Projeto" %>
-      </h1>
-    </div>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+      <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+        <div class="card-body p-4 p-md-5">
+          <h1 class="text-2xl font-bold text-gray-800 text-center mb-4">
+            <%= @project.new_record? ? "Criar Novo Projeto" : "Editar Projeto" %>
+          </h1>
 
-    <!-- Form -->
-    <%= form_with(model: @project, local: true, class: "needs-validation", novalidate: true) do |form| %>
-      <% if @project.errors.any? %>
-        <div class="alert alert-danger" role="alert">
-          <h4 class="alert-heading"><%= pluralize(@project.errors.count, "erro") %> encontrado(s):</h4>
-          <ul class="mb-0">
-            <% @project.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
+          <%= form_with(model: @project, local: true, html: { class: "needs-validation", novalidate: true, data: { turbo: false } }) do |form| %>
+            <% if @project.errors.any? %>
+              <div class="alert alert-danger" role="alert" aria-live="assertive">
+                <h4 class="alert-heading"><%= pluralize(@project.errors.count, "erro") %> encontrado(s):</h4>
+                <ul class="mb-0">
+                  <% @project.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
             <% end %>
-          </ul>
+
+            <div class="mb-4">
+              <%= form.label :name, "Nome do Projeto", class: "form-label fw-bold" %>
+              <%= form.text_field :name, class: "form-control", required: true, "aria-describedby": "nameError" %>
+              <div id="nameError" class="invalid-feedback">
+                Por favor, insira o nome do projeto.
+              </div>
+            </div>
+
+            <div class="mb-4">
+              <%= form.label :description, "Descrição", class: "form-label fw-bold" %>
+              <%= form.text_area :description, class: "form-control", rows: 5, "aria-describedby": "descriptionHelp" %>
+              <div id="descriptionHelp" class="form-text text-muted">
+                Descreva o projeto (opcional).
+              </div>
+            </div>
+
+            <div class="d-flex justify-content-end gap-2">
+              <%= form.submit @project.new_record? ? "Criar Projeto" : "Atualizar Projeto",
+                              class: "btn btn-success btn-lg",
+                              data: { disable_with: @project.new_record? ? "Criando..." : "Atualizando..." },
+                              aria: { label: @project.new_record? ? "Criar projeto" : "Atualizar projeto" } %>
+              <%= link_to "Cancelar", projects_path, class: "btn btn-outline-secondary btn-lg", aria: { label: "Cancelar edição do projeto" } %>
+            </div>
+          <% end %>
         </div>
-      <% end %>
-
-      <div class="form-group">
-        <%= form.label :name, class: "form-label fw-bold" %>
-        <%= form.text_field :name, class: "form-control", required: true %>
-        <div class="invalid-feedback">
-          Por favor, insira o nome do projeto.
-        </div>
       </div>
-
-      <div class="form-group">
-        <%= form.label :description, class: "form-label fw-bold" %>
-        <%= form.text_area :description, class: "form-control", rows: 5 %>
-      </div>
-
-      <div class="d-flex justify-content-end gap-2">
-        <%= form.submit class: "btn btn-primary btn-lg" %>
-        <%= link_to 'Cancelar', projects_path, class: 'btn btn-secondary btn-lg' %>
-      </div>
-    <% end %>
+    </div>
   </div>
 </div>
-</body>
-</html>
+
+<style>
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    .animate__fadeIn {
+        animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
+
+<script>
+    // Bootstrap client-side validation
+    (function () {
+        'use strict';
+        const forms = document.querySelectorAll('.needs-validation');
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', event => {
+                if (!form.checkValidity()) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                }
+                form.classList.add('was-validated');
+            }, false);
+        });
+    })();
+</script>
