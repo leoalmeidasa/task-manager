@@ -67,5 +67,4 @@ class TasksController < ApplicationController
   def authorize_task
     authorize_user_resource(@task)
   end
-
 end
