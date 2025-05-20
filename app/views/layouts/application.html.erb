@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="<%= I18n.locale %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Task Manager - Welcome</title>
+  <title><%= t('app.title') %></title>
   <%= csrf_meta_tags %>
   <%= csp_meta_tag %>
   <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -148,29 +148,39 @@
     <button type="button" id="sidebarCollapse" class="btn btn-primary">
       <i class="bi bi-list"></i>
     </button>
-    <a class="navbar-brand ms-3" href="/">Task Manager</a>
+    <a class="navbar-brand ms-3" href="/"><%= t('app.title') %></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Language Selector -->
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
+            <i class="bi bi-globe"></i> <%= t('app.language') %>
+          </a>
+          <ul class="dropdown-menu dropdown-menu-end">
+            <li><%= link_to t('app.english'), { locale: :en }, class: "dropdown-item #{'active' if I18n.locale == :en}" %></li>
+            <li><%= link_to t('app.portuguese'), { locale: :pt }, class: "dropdown-item #{'active' if I18n.locale == :pt}" %></li>
+          </ul>
+        </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-bs-toggle="dropdown">
               <%= current_user.email %>
             </a>
             <ul class="dropdown-menu dropdown-menu-end">
-              <li><%= link_to "Meu Perfil", edit_user_registration_path, class: "dropdown-item" %></li>
+              <li><%= link_to t('navigation.my_profile'), edit_user_registration_path, class: "dropdown-item" %></li>
               <li><hr class="dropdown-divider"></li>
-              <li><%= link_to "Sair", destroy_user_session_path, data: { turbo_method: :delete, turbo: false }, class: "dropdown-item text-danger" %></li>
+              <li><%= link_to t('navigation.sign_out'), destroy_user_session_path, data: { turbo_method: :delete, turbo: false }, class: "dropdown-item text-danger" %></li>
             </ul>
           </li>
         <% else %>
           <li class="nav-item">
-            <%= link_to "Entrar", new_user_session_path, class: "nav-link" %>
+            <%= link_to t('navigation.sign_in'), new_user_session_path, class: "nav-link" %>
           </li>
           <li class="nav-item">
-            <%= link_to "Cadastrar", new_user_registration_path, class: "nav-link" %>
+            <%= link_to t('navigation.register'), new_user_registration_path, class: "nav-link" %>
           </li>
         <% end %>
       </ul>
@@ -182,18 +192,18 @@
 <% if user_signed_in? %>
   <nav id="sidebar">
     <div class="sidebar-header">
-      <h3>Menu</h3>
+      <h3><%= t('navigation.menu') %></h3>
     </div>
 
     <ul class="list-unstyled components">
       <li class="active">
-        <a href="/projects"><i class="bi bi-kanban me-2"></i>Projetos</a>
+        <a href="/projects"><i class="bi bi-kanban me-2"></i><%= t('navigation.projects') %></a>
       </li>
-        <li>
-          <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo: false } do %>
-            <i class="bi bi-box-arrow-right me-2"></i>Sair
-          <% end %>
-        </li>
+      <li>
+        <%= link_to destroy_user_session_path, data: { turbo_method: :delete, turbo: false } do %>
+          <i class="bi bi-box-arrow-right me-2"></i><%= t('navigation.sign_out') %>
+        <% end %>
+      </li>
     </ul>
   </nav>
 <% end %>
@@ -227,7 +237,7 @@
 <!-- Footer -->
 <footer class="bg-dark text-white text-center py-3">
   <div class="container">
-    <p class="mb-0">© <%= Time.now.year %> Task Manager. Todos os direitos reservados.</p>
+    <p class="mb-0">© <%= Time.now.year %> <%= t('app.title') %>. <%= t('app.footer') %></p>
   </div>
 </footer>
 

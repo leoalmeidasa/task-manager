@@ -1,8 +1,7 @@
 class ApplicationController < ActionController::Base
   allow_browser versions: :modern
   before_action :authenticate_user!
-
-  # Adiciona headers para evitar problemas de CORS
+  before_action :set_locale
   before_action :set_cors_headers
 
   def after_sign_in_path_for(resource)
@@ -24,5 +23,14 @@ class ApplicationController < ActionController::Base
         redirect_to projects_path
       end
     end
+    end
+
+  def set_locale
+    I18n.locale = params[:locale] || session[:locale] || I18n.default_locale
+    session[:locale] = I18n.locale
+  end
+
+  def default_url_options
+    { locale: I18n.locale }
   end
 end

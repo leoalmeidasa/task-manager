@@ -1,14 +1,19 @@
-<div id="content">
-  <div class="container mt-5">
+<div class="card shadow-sm">
+  <div class="card-header bg-primary text-white">
+    <h2 class="card-title mb-0"><%= t('projects.my_projects') %></h2>
+  </div>
+  <div class="card-body">
     <!-- Título com estilo -->
     <div class="text-center mb-4">
-      <h1 class="display-3 fw-bold text-primary">Gerenciador de Projetos</h1>
-      <p class="lead text-muted">Acompanhe, edite e organize seus projetos com facilidade.</p>
+      <h3 class="fw-bold text-primary"><%= t('projects.project_manager') %></h3>
+      <p class="lead text-muted"><%= t('projects.track_edit_organize') %></p>
     </div>
 
     <!-- Botão de novo projeto -->
     <div class="d-flex justify-content-end mb-3">
-      <%= link_to '➕ Novo Projeto', new_project_path, class: 'btn btn-success btn-lg' %>
+      <%= link_to new_project_path, class: 'btn btn-success' do %>
+        <i class="bi bi-plus-circle me-1"></i> <%= t('projects.new_project') %>
+      <% end %>
     </div>
 
     <!-- Tabela de projetos -->
@@ -16,28 +21,50 @@
       <table class="table table-hover table-bordered align-middle shadow-sm">
         <thead class="table-primary text-center">
         <tr>
-          <th>Nome</th>
-          <th>Descrição</th>
-          <th>Ações</th>
+          <th><%= t('projects.name') %></th>
+          <th><%= t('projects.description') %></th>
+          <th><%= t('projects.actions') %></th>
         </tr>
         </thead>
         <tbody>
+        <% @projects = Project.where(
+          user_id: current_user.id
+        ).or(
+          Project.where(id: ProjectMember.where(user_id: current_user.id).select(:project_id))
+        ).distinct %>
         <% if @projects.present? %>
           <% @projects.each do |project| %>
             <tr>
               <td><%= project.name %></td>
               <td><%= project.description %></td>
-              <td class="text-center action-buttons">
-                <%= link_to '👁 Ver', project, class: 'btn btn-sm btn-outline-info d-inline-block' %>
-                <%= link_to '✏️ Editar', edit_project_path(project), class: 'btn btn-sm btn-outline-secondary d-inline-block' %>
-                <%= button_to '🗑 Excluir', project_path(project), method: :delete, data: { confirm: 'Tem certeza?' },
-                              form: { class: 'd-inline' }, class: 'btn btn-sm btn-outline-danger' %>
+              <td class="text-center">
+                <div class="btn-group" role="group">
+                  <%= link_to project, class: 'btn btn-sm btn-outline-info' do %>
+                    <i class="bi bi-eye"></i>
+                  <% end %>
+                  <%= link_to edit_project_path(project), class: 'btn btn-sm btn-outline-secondary' do %>
+                    <i class="bi bi-pencil"></i>
+                  <% end %>
+                  <%= link_to project, method: :delete, data: { turbo_method: :delete, turbo_confirm: t('projects.delete_confirmation') }, class: 'btn btn-sm btn-outline-danger' do %>
+                    <i class="bi bi-trash"></i>
+                  <% end %>
+                </div>
               </td>
             </tr>
           <% end %>
         <% else %>
           <tr>
-            <td colspan="3" class="text-center text-muted">Nenhum projeto encontrado.</td>
+            <td colspan="3" class="text-center text-muted">
+              <div class="py-4">
+                <i class="bi bi-folder-x fs-1 d-block mb-2"></i>
+                <%= t('projects.no_projects_found') %>
+                <div class="mt-2">
+                  <%= link_to new_project_path, class: 'btn btn-primary btn-sm' do %>
+                    <i class="bi bi-plus-circle me-1"></i> <%= t('projects.create_first_project') %>
+                  <% end %>
+                </div>
+              </div>
+            </td>
           </tr>
         <% end %>
         </tbody>
@@ -45,13 +72,3 @@
     </div>
   </div>
 </div>
-<script>
-    const sidebar = document.getElementById('sidebar-project');
-    const sidebarToggle = document.getElementById('sidebar-toggle');
-    const sidebarClose = document.getElementById('sidebar-close');
-
-    function toggleSidebar() {
-        sidebar.classList.toggle('translate-x-full');
-        sidebar.classList.toggle('translate-x-0');
-    }
-</script>
