@@ -11,10 +11,12 @@ class TasksController < ApplicationController
   end
 
   def new
+    @project = Project.find(params[:project_id])
     @task = @project.tasks.build
   end
 
   def create
+    @project = Project.find(params[:project_id])
     @task = @project.tasks.build(task_params)
     @task.user = current_user
     if @task.save
