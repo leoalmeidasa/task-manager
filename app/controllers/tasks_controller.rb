@@ -3,7 +3,6 @@ class TasksController < ApplicationController
   before_action :set_project
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authorize_task, only: %i[show edit update destroy]
-  before_action :authorize_project_member, only: [:index, :new, :create]
 
   def index
     @task = @project.tasks
@@ -70,12 +69,5 @@ class TasksController < ApplicationController
 
   def authorize_task
     authorize_user_resource(@task)
-  end
-
-  def authorize_project_member
-    unless @project.user_id == current_user.id || @project.members.include?(current_user)
-      flash[:alert] = "Você não tem permissão para acessar as tarefas deste projeto."
-      redirect_to projects_path
-    end
   end
 end

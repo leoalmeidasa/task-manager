@@ -6,7 +6,7 @@
           <h1 class="text-2xl font-bold text-gray-800 mb-4">Tarefas do Projeto: <%= @project.name %></h1>
 
           <% if user_signed_in? %>
-            <%= link_to new_project_task_path(@project), class: "btn btn-primary mb-3 d-inline-flex align-items-center", aria: { label: "Criar nova tarefa" } do %>
+            <%= link_to new_project_task_path(@project), class: "btn btn-primary mb-3 d-inline-flex align-items-center" do %>
               <i class="bi bi-plus-circle me-2"></i> Nova Tarefa
             <% end %>
           <% end %>
