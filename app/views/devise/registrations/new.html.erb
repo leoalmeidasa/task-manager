@@ -3,26 +3,22 @@
     <div class="col-md-6 col-lg-4">
       <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
         <div class="card-body p-4 p-md-5">
-          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">
-            <%= t('.sign_up_title', default: 'Cadastrar') %>
-          </h2>
+          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4"><%= t('devise.registrations.new.sign_up') %></h2>
 
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "d-flex flex-column gap-3", data: { turbo: false } }) do |f| %>
             <%= render "devise/shared/error_messages", resource: resource %>
 
             <div class="mb-3">
-              <%= f.label :email, t('.email_label', default: 'E-mail'), class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :email, t('devise.labels.email'), class: "form-label text-sm font-medium text-gray-700" %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "emailHelp emailError" %>
-              <div id="emailHelp" class="form-text text-muted"><%= t('.email_help', default: 'Nunca compartilharemos seu e-mail.') %></div>
-              <div id="emailError" class="invalid-feedback"><%= t('.email_error', default: 'Insira um e-mail válido.') %></div>
+              <div id="emailHelp" class="form-text text-muted"><%= t('devise.hints.email_privacy') %></div>
+              <div id="emailError" class="invalid-feedback"><%= t('devise.validations.email') %></div>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password, t('.password_label', default: 'Senha'), class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :password, t('devise.labels.password'), class: "form-label text-sm font-medium text-gray-700" %>
               <% if @minimum_password_length %>
-                <span class="form-text text-xs text-gray-500">
-                  (<%= t('.password_min_length', count: @minimum_password_length, default: "%{count} caracteres no mínimo") %>)
-                </span>
+                <span class="form-text text-xs text-gray-500">(<%= t('devise.hints.password_min_length', count: @minimum_password_length) %>)</span>
               <% end %>
               <div class="input-group">
                 <%= f.password_field :password, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_field" %>
@@ -30,22 +26,22 @@
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="passwordError" class="invalid-feedback"><%= t('.password_error', default: 'Senha é obrigatória.') %></div>
+              <div id="passwordError" class="invalid-feedback"><%= t('devise.validations.password_required') %></div>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password_confirmation, t('.password_confirmation_label', default: 'Confirme a Senha'), class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :password_confirmation, t('devise.labels.password_confirmation'), class: "form-label text-sm font-medium text-gray-700" %>
               <div class="input-group">
                 <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_confirmation_field" %>
                 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="passwordConfirmationError" class="invalid-feedback"><%= t('.password_confirmation_error', default: 'Confirmação da senha é obrigatória.') %></div>
+              <div id="passwordConfirmationError" class="invalid-feedback"><%= t('devise.validations.password_confirmation') %></div>
             </div>
 
             <div class="d-grid">
-              <%= f.submit t('.submit', default: 'Cadastrar'), class: "btn btn-success w-100 py-2 rounded-md transition-all duration-300 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-offset-2", id: "submitBtn", data: { disable_with: t('.submitting', default: 'Cadastrando...') } %>
+              <%= f.submit t('devise.registrations.new.sign_up'), class: "btn btn-success w-100 py-2 rounded-md transition-all duration-300 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-offset-2", id: "submitBtn", data: { disable_with: t('devise.registrations.new.signing_up') } %>
             </div>
           <% end %>
 
@@ -57,6 +53,7 @@
     </div>
   </div>
 </div>
+
 <style>
     .card {
         transition: transform 0.2s ease-in-out;

@@ -3,7 +3,7 @@
     <div class="col-md-6 col-lg-4">
       <div class="card shadow-sm border-0">
         <div class="card-body p-4 p-md-5">
-          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Sign In</h2>
+          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4"><%= t('devise.sessions.new.sign_in') %></h2>
 
           <%= form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: "d-flex flex-column gap-3" }) do |f| %>
             <% if resource.errors.any? %>
@@ -17,25 +17,25 @@
             <% end %>
 
             <div class="mb-3">
-              <%= f.label :email, class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :email, t('devise.labels.email'), class: "form-label text-sm font-medium text-gray-700" %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "emailHelp" %>
-              <div id="emailHelp" class="form-text text-muted">We'll never share your email.</div>
+              <div id="emailHelp" class="form-text text-muted"><%= t('devise.hints.email_privacy') %></div>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password, class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :password, t('devise.labels.password'), class: "form-label text-sm font-medium text-gray-700" %>
               <%= f.password_field :password, autocomplete: "current-password", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true %>
             </div>
 
             <% if devise_mapping.rememberable? %>
               <div class="mb-3 form-check">
                 <%= f.check_box :remember_me, class: "form-check-input h-4 w-4 text-blue-600 focus:ring-blue-500 border-gray-300 rounded", id: "rememberMe" %>
-                <%= f.label :remember_me, class: "form-check-label text-sm text-gray-700", for: "rememberMe" %>
+                <%= f.label :remember_me, t('devise.labels.remember_me'), class: "form-check-label text-sm text-gray-700", for: "rememberMe" %>
               </div>
             <% end %>
 
             <div class="d-grid">
-              <%= f.submit "Sign In", class: "btn btn-primary w-100 py-2 rounded-md transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { turbo: false } %>
+              <%= f.submit t('devise.sessions.new.sign_in'), class: "btn btn-primary w-100 py-2 rounded-md transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { turbo: false } %>
             </div>
           <% end %>
 
