@@ -72,9 +72,11 @@ class TasksController < ApplicationController
   end
 
   def authorize_project_member
-    unless @project.user_id == current_user.id || @project.members.include?(current_user)
-      flash[:alert] = "Você não tem permissão para acessar as tarefas deste projeto."
-      redirect_to projects_path
+    unless respirce.class == Task
+      unless @project.user_id == current_user.id || @project.members.include?(current_user)
+        flash[:alert] = "Você não tem permissão para acessar as tarefas deste projeto."
+        redirect_to projects_path
+      end
     end
   end
 end
