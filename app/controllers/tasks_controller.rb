@@ -4,7 +4,7 @@ class TasksController < ApplicationController
   before_action :authorize_task, only: %i[show edit update destroy]
 
   def index
-    @project = Project.find(params[:project_id])
+    @project = current_user.projects
   end
 
   def show
