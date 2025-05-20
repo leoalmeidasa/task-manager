@@ -1,43 +1,137 @@
-<h2>Edit <%= resource_name.to_s.humanize %></h2>
+<div class="container py-5">
+  <div class="row justify-content-center">
+    <div class="col-md-6 col-lg-4">
+      <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
+        <div class="card-body p-4 p-md-5">
+          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Edit <%= resource_name.to_s.humanize %></h2>
 
-<%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put }) do |f| %>
-  <%= render "devise/shared/error_messages", resource: resource %>
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "d-flex flex-column gap-3", data: { turbo: false } }) do |f| %>
+            <% if resource.errors.any? %>
+              <div id="error_explanation" class="alert alert-danger animate__animated animate__fadeIn" role="alert" aria-live="assertive" data-turbo-cache="false">
+                <h2 class="alert-heading fs-5 mb-3">
+                  <%= I18n.t("errors.messages.not_saved",
+                             count: resource.errors.count,
+                             resource: resource.class.model_name.human.downcase)
+                  %>
+                </h2>
+                <ul class="mb-0 ps-3">
+                  <% resource.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
-  <div class="field">
-    <%= f.label :email %><br />
-    <%= f.email_field :email, autofocus: true, autocomplete: "email" %>
+            <div class="mb-3">
+              <%= f.label :email, class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "emailHelp emailError" %>
+              <div id="emailHelp" class="form-text text-muted">We'll never share your email.</div>
+              <div id="emailError" class="invalid-feedback">Please enter a valid email.</div>
+            </div>
+
+            <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
+              <div class="alert alert-info" role="alert">
+                Currently waiting confirmation for: <strong><%= resource.unconfirmed_email %></strong>
+              </div>
+            <% end %>
+
+            <div class="mb-3">
+              <%= f.label :password, class: "form-label text-sm font-medium text-gray-700" %>
+              <% if @minimum_password_length %>
+                <span class="form-text text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</span>
+              <% end %>
+              <div class="input-group">
+                <%= f.password_field :password, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_field" %>
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div id="passwordError" class="invalid-feedback">Password is required.</div>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :password_confirmation, class: "form-label text-sm font-medium text-gray-700" %>
+              <div class="input-group">
+                <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_confirmation_field" %>
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div id="passwordConfirmationError" class="invalid-feedback">Password confirmation is required.</div>
+            </div>
+
+            <div class="mb-3">
+              <%= f.label :current_password, class: "form-label text-sm font-medium text-gray-700" %>
+              <span class="form-text text-xs text-gray-500">(we need your current password to confirm your changes)</span>
+              <div class="input-group">
+                <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control px-3 py-2", required: true, id: "current_password_field", "aria-describedby": "currentPasswordError" %>
+                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                  <i class="bi bi-eye"></i>
+                </button>
+              </div>
+              <div id="currentPasswordError" class="invalid-feedback">Current password is required.</div>
+            </div>
+
+            <div class="d-grid">
+              <%= f.submit "Update", class: "btn btn-primary w-100 py-2 rounded-md transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { disable_with: "Updating..." } %>
+            </div>
+          <% end %>
+
+          <div class="mt-5">
+            <h3 class="text-xl font-bold text-gray-800 mb-3">Cancel My Account</h3>
+            <p class="text-gray-600 mb-3">Unhappy? Canceling your account is permanent and cannot be undone.</p>
+            <%= button_to "Cancel My Account", registration_path(resource_name),
+                          method: :delete,
+                          data: { confirm: "Are you sure you want to cancel your account? This action cannot be undone.", turbo: false },
+                          class: "btn btn-danger w-100 py-2 rounded-md transition-all duration-300 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2",
+                          aria: { label: "Cancel account" } %>
+          </div>
+
+          <div class="text-center text-sm text-gray-600 mt-4">
+            <%= link_to "Back", :back, class: "btn btn-outline-secondary px-4 py-2 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" %>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
+</div>
 
-  <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
-    <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
-  <% end %>
+<style>
+    .card {
+        transition: transform 0.2s ease-in-out;
+    }
+    .card:hover {
+        transform: translateY(-2px);
+    }
+    .alert-danger {
+        background-color: #f8d7da;
+        border-color: #f5c2c7;
+        color: #842029;
+    }
+    .alert-danger .alert-heading {
+        color: #842029;
+    }
+    .animate__fadeIn {
+        animation: fadeIn 0.5s ease-in;
+    }
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+</style>
 
-  <div class="field">
-    <%= f.label :password %> <i>(leave blank if you don't want to change it)</i><br />
-    <%= f.password_field :password, autocomplete: "new-password" %>
-    <% if @minimum_password_length %>
-      <br />
-      <em><%= @minimum_password_length %> characters minimum</em>
-    <% end %>
-  </div>
-
-  <div class="field">
-    <%= f.label :password_confirmation %><br />
-    <%= f.password_field :password_confirmation, autocomplete: "new-password" %>
-  </div>
-
-  <div class="field">
-    <%= f.label :current_password %> <i>(we need your current password to confirm your changes)</i><br />
-    <%= f.password_field :current_password, autocomplete: "current-password" %>
-  </div>
-
-  <div class="actions">
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<h3>Cancel my account</h3>
-
-<div>Unhappy? <%= button_to "Cancel my account", registration_path(resource_name), data: { confirm: "Are you sure?", turbo_confirm: "Are you sure?" }, method: :delete %></div>
-
-<%= link_to "Back", :back %>
+<script>
+    function togglePassword(button) {
+        const passwordField = button.previousElementSibling;
+        const icon = button.querySelector('.bi');
+        if (passwordField.type === 'password') {
+            passwordField.type = 'text';
+            icon.classList.remove('bi-eye');
+            icon.classList.add('bi-eye-slash');
+        } else {
+            passwordField.type = 'password';
+            icon.classList.remove('bi-eye-slash');
+            icon.classList.add('bi-eye');
+        }
+    }
+</script>
