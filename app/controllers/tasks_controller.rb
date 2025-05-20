@@ -1,5 +1,5 @@
 class TasksController < ApplicationController
-  before_action :set_project, :authenticate_user!
+  before_action :authenticate_user!, :set_project, only: %i[show edit update destro]
   before_action :set_task, only: [:show, :edit, :update, :destroy]
   before_action :authorize_task, only: %i[show edit update destroy]
   before_action :authorize_project_member, only: [:index, :new, :create]
