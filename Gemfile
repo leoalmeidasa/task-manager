@@ -9,6 +9,8 @@ gem 'devise'
 gem 'acts_as_tenant'
 # Gem pagy
 gem 'pagy', '~> 9.0'
+# Gem solid
+gem "solid_queue"
 # Bootstrap gems
 gem 'devise-bootstrap-views'
 # ipeline for Rails [https://github.com/rails/propshaft]
