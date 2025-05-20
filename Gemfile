@@ -6,7 +6,6 @@ gem "rails", "~> 8.0.2"
 # The modern asset p# Use postgresql
 gem 'pg'
 gem 'devise'
-gem 'acts_as_tenant'
 # Gem cors
 gem 'rack-cors'
 # Gem aws

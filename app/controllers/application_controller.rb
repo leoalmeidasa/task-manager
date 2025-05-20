@@ -1,5 +1,4 @@
 class ApplicationController < ActionController::Base
-  set_current_tenant_by_subdomain(:account, :subdomain)
   allow_browser versions: :modern
   before_action :authenticate_user!
 
