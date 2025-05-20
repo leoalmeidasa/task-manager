@@ -4,19 +4,17 @@ class TasksController < ApplicationController
   before_action :authorize_task, only: %i[show edit update destroy]
 
   def index
-    @task = Project.find(params[:project_id]).tasks
+    @task = @project.tasks
   end
 
   def show
   end
 
   def new
-    @project = Project.find(params[:project_id])
     @task = @project.tasks.build
   end
 
   def create
-    @project = Project.find(params[:project_id])
     @task = @project.tasks.build(task_params)
     @task.user = current_user
     if @task.save
@@ -39,11 +37,10 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task = Task.find(params[:id])
     if @task.destroy
-      redirect_to projects_path, notice: 'Task excluído com sucesso.'
+      redirect_to project_tasks_path(@project), notice: 'Tarefa excluída com sucesso.'
     else
-      redirect_to projects_path, alert: 'Falha ao excluir o task.'
+      redirect_to project_tasks_path(@project), alert: 'Falha ao excluir a tarefa.'
     end
   end
 
