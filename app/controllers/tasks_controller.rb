@@ -38,8 +38,12 @@ class TasksController < ApplicationController
   end
 
   def destroy
-    @task.destroy
-    redirect_to project_tasks_path(@project), notice: "Tarefa excluída com sucesso."
+    @task = Task.find(params[:id])
+    if @task.destroy
+      redirect_to projects_path, notice: 'Task excluído com sucesso.'
+    else
+      redirect_to projects_path, alert: 'Falha ao excluir o task.'
+    end
   end
 
   private
