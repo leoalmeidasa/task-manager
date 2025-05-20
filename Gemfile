@@ -9,8 +9,6 @@ gem 'devise'
 gem 'acts_as_tenant'
 # Gem pagy
 gem 'pagy', '~> 9.0'
-# Gem solid
-gem "solid_queue"
 # Bootstrap gems
 gem 'devise-bootstrap-views'
 # ipeline for Rails [https://github.com/rails/propshaft]
@@ -34,7 +32,7 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 
 # Use the database-backed adapters for Rails.cache, Active Job, and Action Cable
 gem "solid_cache"
-gem "solid_queue"
+gem "solid_queue", "~> 0.3"
 gem "solid_cable"
 
 # Reduces boot times through caching; required in config/boot.rb
