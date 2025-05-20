@@ -19,9 +19,11 @@ class ApplicationController < ActionController::Base
   end
 
   def authorize_user_resource(resource)
-    unless resource.user_id == current_user.id
-      flash[:alert] = "Você não tem permissão para acessar este recurso."
-      redirect_to projects_path
+    unless resource.class == Task
+      unless resource.user_id == current_user.id || resource.project_members.exists?(user_id: current_user.id)
+        flash[:alert] = "Você não tem permissão para acessar este recurso."
+        redirect_to projects_path
+      end
     end
   end
 end

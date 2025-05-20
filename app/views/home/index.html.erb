@@ -27,7 +27,11 @@
         </tr>
         </thead>
         <tbody>
-        <% @projects = Project.where(user_id: current_user.id) %>
+        <% @projects = Project.where(
+          user_id: current_user.id
+        ).or(
+          Project.where(id: ProjectMember.where(user_id: current_user.id).select(:project_id))
+        ).distinct %>
         <% if @projects.present? %>
           <% @projects.each do |project| %>
             <tr>

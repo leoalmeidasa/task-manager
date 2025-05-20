@@ -3,9 +3,12 @@ class ProjectsController < ApplicationController
   before_action :authorize_project, only: %i[show edit update destroy]
 
   def index
-    @projects = current_user.projects
+    @projects = Project.where(
+      user_id: current_user.id
+    ).or(
+      Project.where(id: ProjectMember.where(user_id: current_user.id).select(:project_id))
+    ).distinct
   end
-
   def show
   end
 
