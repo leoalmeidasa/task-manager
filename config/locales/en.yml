@@ -109,6 +109,14 @@ en:
       attachments: "Attachments"
       submit: "Save"
   project_members:
+    new:
+      title: "Add Member to Project: %{project_name}"
+      errors_found: "Unable to add the member:"
+      user: "Select User"
+      user_prompt: "Select a user"
+      no_users: "No users available to add to this project."
+      cancel: "Cancel"
+      add_member: "Add Member"
     index:
       title: "Project Members: %{project_name}"
       add_member: "Add Member"

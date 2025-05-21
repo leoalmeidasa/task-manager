@@ -1,16 +1,15 @@
-<!-- app/views/project_members/new.html.erb -->
 <div class="container mt-4">
   <div class="row">
     <div class="col-md-8 offset-md-2">
       <div class="card shadow-sm">
         <div class="card-header bg-primary text-white">
-          <h5 class="mb-0">Adicionar Membro ao Projeto: <%= @project.name %></h5>
+          <h5 class="mb-0"><%= t('project_members.new.title', project_name: @project.name) %></h5>
         </div>
         <div class="card-body">
           <%= form_with(model: [@project, @project_member], local: true) do |form| %>
             <% if @project_member.errors.any? %>
               <div class="alert alert-danger">
-                <h6>Não foi possível adicionar o membro:</h6>
+                <h6><%= t('project_members.new.errors_found') %></h6>
                 <ul>
                   <% @project_member.errors.full_messages.each do |message| %>
                     <li><%= message %></li>
@@ -20,22 +19,22 @@
             <% end %>
 
             <div class="mb-3">
-              <%= form.label :user_id, "Selecione o Usuário", class: "form-label" %>
+              <%= form.label :user_id, t('project_members.new.user'), class: "form-label" %>
               <% if @available_users.any? %>
                 <%= form.collection_select :user_id, @available_users, :id, :email,
-                                           { prompt: "Selecione um usuário" },
+                                           { prompt: t('project_members.new.user_prompt') },
                                            { class: "form-select", required: true } %>
               <% else %>
                 <div class="alert alert-warning">
-                  Não há usuários disponíveis para adicionar a este projeto.
+                  <%= t('project_members.new.no_users') %>
                 </div>
               <% end %>
             </div>
 
             <div class="d-grid gap-2 d-md-flex justify-content-md-end">
-              <%= link_to "Cancelar", project_project_members_path(@project), class: "btn btn-secondary me-md-2" %>
+              <%= link_to t('project_members.new.cancel'), project_project_members_path(@project), class: "btn btn-secondary me-md-2" %>
               <% if @available_users.any? %>
-                <%= form.submit "Adicionar Membro", class: "btn btn-primary" %>
+                <%= form.submit t('project_members.new.add_member'), class: "btn btn-primary" %>
               <% end %>
             </div>
           <% end %>

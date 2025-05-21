@@ -124,6 +124,14 @@ pt:
       attachments: "Anexos"
       submit: "Salvar"
   project_members:
+    new:
+      title: "Adicionar Membro ao Projeto: %{project_name}"
+      errors_found: "Não foi possível adicionar o membro:"
+      user: "Selecione o Usuário"
+      user_prompt: "Selecione um usuário"
+      no_users: "Não há usuários disponíveis para adicionar a este projeto."
+      cancel: "Cancelar"
+      add_member: "Adicionar Membro"
     index:
       title: "Membros do Projeto: %{project_name}"
       add_member: "Adicionar Membro"
