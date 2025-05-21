@@ -6,13 +6,21 @@
           <h2 class="text-2xl font-bold text-gray-800 text-center mb-4"><%= t('devise.registrations.new.sign_up') %></h2>
 
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: "d-flex flex-column gap-3", data: { turbo: false } }) do |f| %>
-            <%= render "devise/shared/error_messages", resource: resource %>
+            <% if resource.errors.any? %>
+              <div class="alert alert-danger" role="alert">
+                <ul class="mb-0">
+                  <% resource.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
 
             <div class="mb-3">
               <%= f.label :email, t('devise.labels.email'), class: "form-label text-sm font-medium text-gray-700" %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "emailHelp emailError" %>
               <div id="emailHelp" class="form-text text-muted"><%= t('devise.hints.email_privacy') %></div>
-              <div id="emailError" class="invalid-feedback"><%= t('devise.validations.email') %></div>
+              <div id="emailError" class="invalid-feedback d-block"><%= t('devise.validations.email') if resource.errors[:email].any? %></div>
             </div>
 
             <div class="mb-3">
@@ -20,24 +28,24 @@
               <% if @minimum_password_length %>
                 <span class="form-text text-xs text-gray-500">(<%= t('devise.hints.password_min_length', count: @minimum_password_length) %>)</span>
               <% end %>
-              <div class="input-group">
+              <div class="input-group d-flex align-items-center">
                 <%= f.password_field :password, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_field" %>
-                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_field">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="passwordError" class="invalid-feedback"><%= t('devise.validations.password_required') %></div>
+              <div id="passwordError" class="invalid-feedback d-block"><%= t('devise.validations.password_required') if resource.errors[:password].any? %></div>
             </div>
 
             <div class="mb-3">
               <%= f.label :password_confirmation, t('devise.labels.password_confirmation'), class: "form-label text-sm font-medium text-gray-700" %>
-              <div class="input-group">
+              <div class="input-group d-flex align-items-center">
                 <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_confirmation_field" %>
-                <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
+                <button class="btn btn-outline-secondary toggle-password" type="button" data-target="password_confirmation_field">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="passwordConfirmationError" class="invalid-feedback"><%= t('devise.validations.password_confirmation') %></div>
+              <div id="passwordConfirmationError" class="invalid-feedback d-block"><%= t('devise.validations.password_confirmation') if resource.errors[:password_confirmation].any? %></div>
             </div>
 
             <div class="d-grid">
@@ -53,7 +61,6 @@
     </div>
   </div>
 </div>
-
 <style>
     .card {
         transition: transform 0.2s ease-in-out;
@@ -68,11 +75,17 @@
         from { opacity: 0; }
         to { opacity: 1; }
     }
+    .input-group {
+        flex-wrap: nowrap; 
+    }
+    .invalid-feedback {
+        min-height: 1.5em;
+    }
 </style>
-
 <script>
     function togglePassword(button) {
-        const passwordField = button.previousElementSibling;
+        const targetId = button.getAttribute('data-target');
+        const passwordField = document.getElementById(targetId);
         const icon = button.querySelector('.bi');
         if (passwordField.type === 'password') {
             passwordField.type = 'text';
@@ -84,4 +97,7 @@
             icon.classList.add('bi-eye');
         }
     }
+    document.querySelectorAll('.toggle-password').forEach(button => {
+        button.addEventListener('click', () => togglePassword(button));
+    });
 </script>

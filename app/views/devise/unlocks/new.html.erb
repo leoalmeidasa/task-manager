@@ -1,7 +1,7 @@
 <div class="container py-5">
   <div class="row justify-content-center">
     <div class="col-md-6 col-lg-4">
-      <div class="card shadow-sm border-0">
+      <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
         <div class="card-body p-4 p-md-5">
           <h2 class="text-2xl font-bold text-gray-800 text-center mb-4"><%= t('devise.passwords.new.forgot_password') %></h2>
 
@@ -15,7 +15,7 @@
             </div>
 
             <div class="d-grid">
-              <%= f.submit t('devise.passwords.new.send_instructions'), class: "btn btn-primary w-100 py-2 rounded-md transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { disable_with: t('devise.passwords.new.sending') } %>
+              <%= f.submit t('devise.passwords.new.send_instructions'), class: "btn btn-success w-100 py-2 rounded-md transition-all duration-300 hover:bg-green-600 focus:ring-2 focus:ring-green-500 focus:ring-offset-2", data: { disable_with: t('devise.passwords.new.sending') } %>
             </div>
           <% end %>
 
@@ -27,16 +27,7 @@
     </div>
   </div>
 </div>
-
 <style>
-    .btn-primary {
-        background-color: #2563eb;
-        border-color: #2563eb;
-    }
-    .btn-primary:hover {
-        background-color: #1d4ed8;
-        border-color: #1d4ed8;
-    }
     .card {
         transition: transform 0.2s ease-in-out;
     }
