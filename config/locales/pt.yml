@@ -35,3 +35,12 @@ pt:
   alerts:
     success: "Sucesso"
     error: "Erro"
+  activerecord:
+    errors:
+      models:
+        user:
+          attributes:
+            email:
+              taken: 'já esta sendo usado'
+            password:
+              too_short: 'é muito curto (mínimo de 6 caracteres)'
