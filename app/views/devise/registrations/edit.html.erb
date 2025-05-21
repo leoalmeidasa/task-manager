@@ -3,16 +3,13 @@
     <div class="col-md-6 col-lg-4">
       <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
         <div class="card-body p-4 p-md-5">
-          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">Edit <%= resource_name.to_s.humanize %></h2>
+          <h2 class="text-2xl font-bold text-gray-800 text-center mb-4"><%= t('devise.registrations.edit.title', resource: resource_name.to_s.humanize) %></h2>
 
           <%= form_for(resource, as: resource_name, url: registration_path(resource_name), html: { method: :put, class: "d-flex flex-column gap-3", data: { turbo: false } }) do |f| %>
             <% if resource.errors.any? %>
               <div id="error_explanation" class="alert alert-danger animate__animated animate__fadeIn" role="alert" aria-live="assertive" data-turbo-cache="false">
                 <h2 class="alert-heading fs-5 mb-3">
-                  <%= I18n.t("errors.messages.not_saved",
-                             count: resource.errors.count,
-                             resource: resource.class.model_name.human.downcase)
-                  %>
+                  <%= t('errors.messages.not_saved', count: resource.errors.count, resource: resource.class.model_name.human.downcase) %>
                 </h2>
                 <ul class="mb-0 ps-3">
                   <% resource.errors.full_messages.each do |message| %>
@@ -23,22 +20,22 @@
             <% end %>
 
             <div class="mb-3">
-              <%= f.label :email, class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :email, t('devise.registrations.edit.email'), class: "form-label text-sm font-medium text-gray-700" %>
               <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control mt-1 px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-blue-500 focus:border-blue-500", required: true, "aria-describedby": "emailHelp emailError" %>
-              <div id="emailHelp" class="form-text text-muted">We'll never share your email.</div>
-              <div id="emailError" class="invalid-feedback">Please enter a valid email.</div>
+              <div id="emailHelp" class="form-text text-muted"><%= t('devise.registrations.edit.email_help') %></div>
+              <div id="emailError" class="invalid-feedback"><%= t('devise.registrations.edit.email_error') %></div>
             </div>
 
             <% if devise_mapping.confirmable? && resource.pending_reconfirmation? %>
               <div class="alert alert-info" role="alert">
-                Currently waiting confirmation for: <strong><%= resource.unconfirmed_email %></strong>
+                <%= t('devise.registrations.edit.waiting_confirmation', email: resource.unconfirmed_email) %>
               </div>
             <% end %>
 
             <div class="mb-3">
-              <%= f.label :password, class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :password, t('devise.registrations.edit.password'), class: "form-label text-sm font-medium text-gray-700" %>
               <% if @minimum_password_length %>
-                <span class="form-text text-xs text-gray-500">(<%= @minimum_password_length %> characters minimum)</span>
+                <span class="form-text text-xs text-gray-500"><%= t('devise.registrations.edit.password_minimum', count: @minimum_password_length) %></span>
               <% end %>
               <div class="input-group">
                 <%= f.password_field :password, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_field" %>
@@ -46,49 +43,49 @@
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="passwordError" class="invalid-feedback">Password is required.</div>
+              <div id="passwordError" class="invalid-feedback"><%= t('devise.registrations.edit.password_error') %></div>
             </div>
 
             <div class="mb-3">
-              <%= f.label :password_confirmation, class: "form-label text-sm font-medium text-gray-700" %>
+              <%= f.label :password_confirmation, t('devise.registrations.edit.password_confirmation'), class: "form-label text-sm font-medium text-gray-700" %>
               <div class="input-group">
                 <%= f.password_field :password_confirmation, autocomplete: "new-password", class: "form-control px-3 py-2", required: true, id: "password_confirmation_field" %>
                 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="passwordConfirmationError" class="invalid-feedback">Password confirmation is required.</div>
+              <div id="passwordConfirmationError" class="invalid-feedback"><%= t('devise.registrations.edit.password_confirmation_error') %></div>
             </div>
 
             <div class="mb-3">
-              <%= f.label :current_password, class: "form-label text-sm font-medium text-gray-700" %>
-              <span class="form-text text-xs text-gray-500">(we need your current password to confirm your changes)</span>
+              <%= f.label :current_password, t('devise.registrations.edit.current_password'), class: "form-label text-sm font-medium text-gray-700" %>
+              <span class="form-text text-xs text-gray-500"><%= t('devise.registrations.edit.current_password_help') %></span>
               <div class="input-group">
                 <%= f.password_field :current_password, autocomplete: "current-password", class: "form-control px-3 py-2", required: true, id: "current_password_field", "aria-describedby": "currentPasswordError" %>
                 <button class="btn btn-outline-secondary" type="button" onclick="togglePassword(this)">
                   <i class="bi bi-eye"></i>
                 </button>
               </div>
-              <div id="currentPasswordError" class="invalid-feedback">Current password is required.</div>
+              <div id="currentPasswordError" class="invalid-feedback"><%= t('devise.registrations.edit.current_password_error') %></div>
             </div>
 
             <div class="d-grid">
-              <%= f.submit "Update", class: "btn btn-primary w-100 py-2 rounded-md transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { disable_with: "Updating..." } %>
+              <%= f.submit t('devise.registrations.edit.update'), class: "btn btn-primary w-100 py-2 rounded-md transition-all duration-300 hover:bg-blue-700 focus:ring-2 focus:ring-blue-500 focus:ring-offset-2", data: { disable_with: t('devise.registrations.edit.updating') } %>
             </div>
           <% end %>
 
           <div class="mt-5">
-            <h3 class="text-xl font-bold text-gray-800 mb-3">Cancel My Account</h3>
-            <p class="text-gray-600 mb-3">Unhappy? Canceling your account is permanent and cannot be undone.</p>
-            <%= button_to "Cancel My Account", registration_path(resource_name),
+            <h3 class="text-xl font-bold text-gray-800 mb-3"><%= t('devise.registrations.edit.cancel_account_title') %></h3>
+            <p class="text-gray-600 mb-3"><%= t('devise.registrations.edit.cancel_account_text') %></p>
+            <%= button_to t('devise.registrations.edit.cancel_account_button'), registration_path(resource_name),
                           method: :delete,
-                          data: { confirm: "Are you sure you want to cancel your account? This action cannot be undone.", turbo: false },
+                          data: { confirm: t('devise.registrations.edit.cancel_account_confirm'), turbo: false },
                           class: "btn btn-danger w-100 py-2 rounded-md transition-all duration-300 hover:bg-red-700 focus:ring-2 focus:ring-red-500 focus:ring-offset-2",
-                          aria: { label: "Cancel account" } %>
+                          aria: { label: t('devise.registrations.edit.cancel_account_aria') } %>
           </div>
 
           <div class="text-center text-sm text-gray-600 mt-4">
-            <%= link_to "Back", :back, class: "btn btn-outline-secondary px-4 py-2 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" %>
+            <%= link_to t('devise.shared.links.back'), :back, class: "btn btn-outline-secondary px-4 py-2 rounded-md hover:bg-gray-100 focus:ring-2 focus:ring-gray-500 focus:ring-offset-2" %>
           </div>
         </div>
       </div>
