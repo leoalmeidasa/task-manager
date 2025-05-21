@@ -134,6 +134,11 @@ en:
   activerecord:
     errors:
       models:
+        task:
+          attributes:
+            due_date:
+              blank: "Due date cannot be blank."
+              not_in_past: "Due date cannot be in the past."
         project:
           attributes:
             name:

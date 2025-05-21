@@ -5,9 +5,19 @@ class Task < ApplicationRecord
   belongs_to :status
   belongs_to :priority
 
-  validates :title, presence: true
+  validates :title, :status, :priority, :user, :due_date, presence: true
   validate :status_name_must_be_valid
   validate :priority_level_must_be_valid
+  validate :due_date_not_in_past
+
+  private
+
+  def due_date_not_in_past
+    return unless due_date.present?
+    if due_date < Date.today
+      errors.add(:due_date, :not_in_past)
+    end
+  end
 
   def priority_level_must_be_valid
     allowed_levels = %w[low medium high]

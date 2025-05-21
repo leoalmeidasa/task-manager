@@ -55,6 +55,11 @@ pt:
   activerecord:
     errors:
       models:
+        task:
+          attributes:
+            due_date:
+              blank: "A data de vencimento não pode estar em branco."
+              not_in_past: "A data de vencimento não pode estar no passado."
         project:
           attributes:
             name:
