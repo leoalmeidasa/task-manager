@@ -1,4 +1,3 @@
-<!-- app/views/projects/show.html.erb -->
 <div class="card shadow-sm">
   <div class="card-header bg-primary text-white">
     <h2 class="card-title mb-0"><%= @project.name.present? ? @project.name : 'Projeto sem título' %></h2>
@@ -7,17 +6,17 @@
     <div class="row">
       <div class="col-md-8">
         <div class="mb-4">
-          <h5 class="text-muted mb-3">Detalhes do Projeto</h5>
+          <h5 class="text-muted mb-3"><%= t('projects.details') %></h5>
 
           <div class="mb-3">
-            <h6 class="fw-bold">Descrição:</h6>
+            <h6 class="fw-bold"><%= t('projects.description') %>:</h6>
             <p class="card-text">
               <%= @project.description.present? ? simple_format(@project.description) : 'Sem descrição disponível' %>
             </p>
           </div>
 
           <div class="mb-3">
-            <h6 class="fw-bold">Criado por:</h6>
+            <h6 class="fw-bold"><%= t('projects.created_by') %>:</h6>
             <p class="card-text">
               <%= @project.user&.email || 'Usuário desconhecido' %>
             </p>
@@ -28,26 +27,26 @@
       <div class="col-md-4">
         <div class="card bg-light">
           <div class="card-body">
-            <h5 class="card-title mb-3">Ações</h5>
+            <h5 class="card-title mb-3"><%= t('projects.actions') %></h5>
             <div class="d-grid gap-2">
               <%= link_to edit_project_path(@project), class: "btn btn-primary mb-2", data: { turbo: false } do %>
-                <i class="bi bi-pencil me-1"></i> Editar Projeto
+                <i class="bi bi-pencil me-1"></i> <%= t('projects.edit_project') %>
               <% end %>
 
               <% if user_signed_in? %>
                 <%= link_to project_tasks_path(@project), class: "btn btn-info mb-2" do %>
-                  <i class="bi bi-list-check me-1"></i> Ver Tarefas
+                  <i class="bi bi-list-check me-1"></i> <%= t('projects.view_tasks') %>
                 <% end %>
               <% end %>
 
               <% if user_signed_in? %>
                 <%= link_to project_project_members_path(@project), class: "btn btn-secondary mb-2" do %>
-                  <i class="bi bi-people me-1"></i> Gerenciar Membros
+                  <i class="bi bi-people me-1"></i> <%= t('projects.manage_members') %>
                 <% end %>
               <% end %>
 
               <%= link_to projects_path, class: "btn btn-outline-secondary" do %>
-                <i class="bi bi-arrow-left me-1"></i> Voltar
+                <i class="bi bi-arrow-left me-1"></i> <%= t('actions.back') %>
               <% end %>
             </div>
           </div>

@@ -4,7 +4,7 @@
       <div class="card shadow-sm border-0 animate__animated animate__fadeIn" style="background: linear-gradient(145deg, #ffffff, #f8fafc);">
         <div class="card-body p-4 p-md-5">
           <h1 class="text-2xl font-bold text-gray-800 text-center mb-4">
-            <%= @project.new_record? ? "Criar Novo Projeto" : "Editar Projeto" %>
+            <%= @project.new_record? ? t('projects.new_project') : t('projects.edit_project') %>
           </h1>
 
           <%= form_with(model: @project, local: true, html: { class: "needs-validation", novalidate: true, data: { turbo: false } }) do |form| %>
@@ -20,27 +20,27 @@
             <% end %>
 
             <div class="mb-4">
-              <%= form.label :name, "Nome do Projeto", class: "form-label fw-bold" %>
+              <%= form.label :name, t('projects.name'), class: "form-label fw-bold" %>
               <%= form.text_field :name, class: "form-control", required: true, "aria-describedby": "nameError" %>
               <div id="nameError" class="invalid-feedback">
-                Por favor, insira o nome do projeto.
+                <%= t('projects.legend_project_name') %>
               </div>
             </div>
 
             <div class="mb-4">
-              <%= form.label :description, "Descrição", class: "form-label fw-bold" %>
+              <%= form.label :description, t('projects.description'), class: "form-label fw-bold" %>
               <%= form.text_area :description, class: "form-control", rows: 5, "aria-describedby": "descriptionHelp" %>
               <div id="descriptionHelp" class="form-text text-muted">
-                Descreva o projeto (opcional).
+                <%= t('projects.legend_description') %>
               </div>
             </div>
 
             <div class="d-flex justify-content-end gap-2">
-              <%= form.submit @project.new_record? ? "Criar Projeto" : "Atualizar Projeto",
+              <%= form.submit @project.new_record? ? t('projects.new_project') : t('projects.update_project'),
                               class: "btn btn-success btn-lg",
                               data: { disable_with: @project.new_record? ? "Criando..." : "Atualizando..." },
                               aria: { label: @project.new_record? ? "Criar projeto" : "Atualizar projeto" } %>
-              <%= link_to "Cancelar", projects_path, class: "btn btn-outline-secondary btn-lg", aria: { label: "Cancelar edição do projeto" } %>
+              <%= link_to t('actions.back'), projects_path, class: "btn btn-outline-secondary btn-lg", aria: { label: "Cancelar edição do projeto" } %>
             </div>
           <% end %>
         </div>

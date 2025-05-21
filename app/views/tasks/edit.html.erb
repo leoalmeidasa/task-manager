@@ -1,15 +1,15 @@
 <div class="container mt-4">
-  <h1>Editar Tarefa</h1>
+  <h1><%= t('task.edits.title') %></h1>
   <div class="card">
     <div class="card-header">
-      <h5 class="card-title mb-0">Atualizar Detalhes da Tarefa</h5>
+      <h5 class="card-title mb-0"><%= t('task.edits.card_title') %></h5>
     </div>
     <div class="card-body">
       <%= render "form", project: @project, task: @task %>
     </div>
   </div>
   <div class="mt-3">
-    <%= link_to "Voltar", project_tasks_path(@project), class: "btn btn-secondary" %>
-    <%= link_to "Ver Tarefa", project_task_path(@project, @task), class: "btn btn-info" %>
+    <%= link_to t('task.back'), project_tasks_path(@project), class: "btn btn-secondary" %>
+    <%= link_to t('task.edits.view_task'), project_task_path(@project, @task), class: "btn btn-info" %>
   </div>
 </div>

@@ -3,11 +3,13 @@
     <div class="col-12">
       <div class="card shadow-sm border-0 animate__animated animate__fadeIn">
         <div class="card-body p-4">
-          <h1 class="text-2xl font-bold text-gray-800 mb-4">Tarefas do Projeto: <%= @project.name %></h1>
+          <h1 class="fs-3 fw-bold text-gray-800 mb-4">
+            <%= t('task.task_project') %>: <%= @project.name %>
+          </h1>
 
           <% if user_signed_in? %>
-            <%= link_to new_project_task_path(@project), class: "btn btn-primary mb-3 d-inline-flex align-items-center" do %>
-              <i class="bi bi-plus-circle me-2"></i> Nova Tarefa
+            <%= link_to new_project_task_path(@project), class: "btn btn-primary mb-3 d-inline-flex align-items-center", aria: { label: t('task.new_task_aria', title: @project.name) } do %>
+              <i class="bi bi-plus-circle me-2"></i> <%= t('task.new_task') %>
             <% end %>
           <% end %>
 
@@ -21,36 +23,36 @@
             <table class="table table-striped table-hover align-middle">
               <thead class="table-dark">
               <tr>
-                <th scope="col">Título</th>
-                <th scope="col">Status</th>
-                <th scope="col">Prioridade</th>
-                <th scope="col">Data de Vencimento</th>
-                <th scope="col">Responsável</th>
-                <th scope="col">Ações</th>
+                <th scope="col"><%= t('task.title') %></th>
+                <th scope="col"><%= t('task.status') %></th>
+                <th scope="col"><%= t('task.priority') %></th>
+                <th scope="col"><%= t('task.due_date') %></th>
+                <th scope="col"><%= t('task.responsible') %></th>
+                <th scope="col"><%= t('task.actions') %></th>
               </tr>
               </thead>
               <tbody>
               <% @task.each do |task| %>
                 <tr>
                   <td><%= task.title %></td>
-                  <td><%= task.status.name %></td>
-                  <td><%= task.priority.level %></td>
-                  <td><%= task.due_date&.strftime('%d/%m/%Y') %></td>
-                  <td><%= task.user&.email || 'Não atribuído' %></td>
+                  <td><%= t("task.statuses.#{task.status.name}", default: task.status.name) %></td>
+                  <td><%= t("task.priorities.#{task.priority.level}", default: task.priority.level) %></td>
+                  <td><%= task.due_date&.strftime(t('task.date_format')) || t('task.no_due_date') %></td>
+                  <td><%= task.user&.email || t('task.not_assigned') %></td>
                   <td class="d-flex gap-2 flex-wrap">
-                    <%= link_to project_task_path(@project, task), class: "btn btn-sm btn-info d-inline-flex align-items-center", aria: { label: "Ver tarefa #{task.title}" } do %>
-                      <i class="bi bi-eye me-1"></i> Ver
+                    <%= link_to project_task_path(@project, task), class: "btn btn-sm btn-info d-inline-flex align-items-center", aria: { label: t('task.view_aria', title: task.title) } do %>
+                      <i class="bi bi-eye me-1"></i> <%= t('task.view') %>
                     <% end %>
-                    <%= link_to edit_project_task_path(@project, task), class: "btn btn-sm btn-warning d-inline-flex align-items-center", aria: { label: "Editar tarefa #{task.title}" } do %>
-                      <i class="bi bi-pencil me-1"></i> Editar
+                    <%= link_to edit_project_task_path(@project, task), class: "btn btn-sm btn-warning d-inline-flex align-items-center", aria: { label: t('task.edit_aria', title: task.title) } do %>
+                      <i class="bi bi-pencil me-1"></i> <%= t('task.edit') %>
                     <% end %>
                     <%= button_to project_task_path(@project, task),
                                   method: :delete,
-                                  data: { confirm: 'Tem certeza que deseja excluir esta tarefa?', turbo: false },
+                                  data: { confirm: t('task.delete_confirm'), turbo: false },
                                   form: { class: 'd-inline' },
                                   class: 'btn btn-sm btn-outline-danger d-inline-flex align-items-center',
-                                  aria: { label: "Excluir tarefa #{task.title}" } do %>
-                      <i class="bi bi-trash me-1"></i> Excluir
+                                  aria: { label: t('task.delete_aria', title: task.title) } do %>
+                      <i class="bi bi-trash me-1"></i> <%= t('task.delete') %>
                     <% end %>
                   </td>
                 </tr>
@@ -59,14 +61,15 @@
             </table>
           </div>
 
-          <%= link_to projects_path, class: "btn btn-secondary mt-3 d-inline-flex align-items-center", aria: { label: "Voltar para lista de projetos" } do %>
-            <i class="bi bi-arrow-left me-2"></i> Voltar
+          <%= link_to projects_path, class: "btn btn-secondary mt-3 d-inline-flex align-items-center", aria: { label: t('task.back_aria') } do %>
+            <i class="bi bi-arrow-left me-2"></i> <%= t('task.back') %>
           <% end %>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <style>
     .card {
         transition: transform 0.2s ease-in-out;
