@@ -28,5 +28,7 @@
     <%= form.label :attachments, t('task.form.attachments'), class: "form-label" %>
     <%= form.file_field :attachments, multiple: true, class: "form-control" %>
   </div>
-  <%= form.submit t('task.form.submit'), class: "btn btn-primary" %>
+  <div class="text-end">
+    <%= form.submit t('task.form.submit'), class: "btn btn-primary" %>
+  </div>
 <% end %>

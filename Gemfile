@@ -4,14 +4,14 @@ ruby "3.4.3"
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.2"
 # The modern asset p# Use postgresql
-gem 'pg'
-gem 'devise'
+gem "pg"
+gem "devise"
 # Gem cors
-gem 'rack-cors'
+gem "rack-cors"
 # Gem aws
 gem "aws-sdk-s3", require: false
 # Bootstrap gems
-gem 'devise-bootstrap-views'
+gem "devise-bootstrap-views"
 # ipeline for Rails [https://github.com/rails/propshaft]
 gem "propshaft"
 # Use the Puma web server [https://github.com/puma/puma]

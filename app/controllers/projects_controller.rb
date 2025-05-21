@@ -20,7 +20,7 @@ class ProjectsController < ApplicationController
     @project = Project.new(project_params)
     @project.user = current_user
     if @project.save
-      redirect_to @project, notice: 'Projeto criado com sucesso.'
+      redirect_to @project, notice: "Projeto criado com sucesso."
     else
       render :new, status: :unprocessable_entity
     end
@@ -31,7 +31,7 @@ class ProjectsController < ApplicationController
 
   def update
     if @project.update(project_params)
-      redirect_to @project, notice: 'Projeto atualizado com sucesso.'
+      redirect_to @project, notice: "Projeto atualizado com sucesso."
     else
       render :edit, status: :unprocessable_entity
     end
@@ -40,9 +40,9 @@ class ProjectsController < ApplicationController
   def destroy
     @project = Project.find(params[:id])
     if @project.destroy
-      redirect_to projects_path, notice: 'Projeto excluído com sucesso.'
+      redirect_to projects_path, notice: "Projeto excluído com sucesso."
     else
-      redirect_to projects_path, alert: 'Falha ao excluir o projeto.'
+      redirect_to projects_path, alert: "Falha ao excluir o projeto."
     end
   end
 

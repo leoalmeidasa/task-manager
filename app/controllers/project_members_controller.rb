@@ -1,6 +1,6 @@
 class ProjectMembersController < ApplicationController
     before_action :set_project
-    before_action :authorize_project_owner, only: [:new, :create, :destroy]
+    before_action :authorize_project_owner, only: [ :new, :create, :destroy ]
 
     def index
       @project_members = @project.project_members.includes(:user)
@@ -45,4 +45,4 @@ class ProjectMembersController < ApplicationController
         redirect_to project_path(@project)
       end
     end
-  end
+end

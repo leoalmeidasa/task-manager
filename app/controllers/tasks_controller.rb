@@ -1,7 +1,7 @@
 class TasksController < ApplicationController
   before_action :authenticate_user!
   before_action :set_project
-  before_action :set_task, only: [:show, :edit, :update, :destroy]
+  before_action :set_task, only: [ :show, :edit, :update, :destroy ]
   before_action :authorize_task, only: %i[show edit update destroy]
 
   def index
@@ -39,9 +39,9 @@ class TasksController < ApplicationController
 
   def destroy
     if @task.destroy
-      redirect_to project_tasks_path(@project), notice: 'Tarefa excluída com sucesso.'
+      redirect_to project_tasks_path(@project), notice: "Tarefa excluída com sucesso."
     else
-      redirect_to project_tasks_path(@project), alert: 'Falha ao excluir a tarefa.'
+      redirect_to project_tasks_path(@project), alert: "Falha ao excluir a tarefa."
     end
   end
 
