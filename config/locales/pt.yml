@@ -21,6 +21,18 @@ pt:
     delete_confirmation: "Tem certeza que deseja excluir este projeto?"
     legend_description: "Descreva o projeto (opcional)."
     legend_project_name: "Por favor, insira o nome do projeto."
+    form:
+      edit_title: "Editar Projeto"
+      new_title: "Novo Projeto"
+      errors_found:
+        one: "1 erro encontrado:"
+        other: "%{count} erros encontrados:"
+      name: "Nome do Projeto"
+      name_placeholder: "Digite o nome do projeto"
+      description: "Descrição"
+      description_placeholder: "Descreva brevemente o projeto"
+      create: "Criar Projeto"
+      update: "Atualizar"
   actions:
     edit: "Editar"
     back: "Voltar"
@@ -43,6 +55,12 @@ pt:
   activerecord:
     errors:
       models:
+        project:
+          attributes:
+            name:
+              blank: "O nome do projeto não pode estar em branco."
+            description:
+              blank: "A descrição não pode estar em branco."
         user:
           attributes:
             email:

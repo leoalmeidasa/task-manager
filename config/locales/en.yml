@@ -21,6 +21,18 @@ en:
     delete_confirmation: "Are you sure you want to delete this project?"
     legend_description: "Describe the project (optional)."
     legend_project_name: "Please enter the project name."
+    form:
+      edit_title: "Edit Project"
+      new_title: "New Project"
+      errors_found:
+        one: "1 error found:"
+        other: "%{count} errors found:"
+      name: "Project Name"
+      name_placeholder: "Enter the project name"
+      description: "Description"
+      description_placeholder: "Briefly describe the project"
+      create: "Create Project"
+      update: "Update"
   actions:
     edit: "Edit"
     back: "Back"
@@ -111,3 +123,12 @@ en:
     date:
       formats:
         short: "%m/%d/%Y"
+  activerecord:
+    errors:
+      models:
+        project:
+          attributes:
+            name:
+              blank: "O nome do projeto não pode estar em branco."
+            description:
+              blank: "A descrição não pode estar em branco."
