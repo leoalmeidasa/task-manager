@@ -6,34 +6,6 @@ O Task Manager é uma aplicação web robusta desenvolvida para gerenciar tarefa
 
 A aplicação foi projetada com foco na experiência do usuário, implementando boas práticas de desenvolvimento e seguindo padrões modernos de arquitetura de software. O sistema permite o gerenciamento completo do ciclo de vida de tarefas, desde a criação até a conclusão, com recursos de priorização, categorização por status e atribuição a membros do projeto.
 
-## Tecnologias Utilizadas
-
-O Task Manager foi desenvolvido utilizando um conjunto moderno de tecnologias e ferramentas que garantem robustez, segurança e escalabilidade:
-
-Ruby 3.4.3 como linguagem de programação principal, aproveitando seus recursos de expressividade e produtividade.
-
-Rails 8.0.2 como framework web, fornecendo uma estrutura sólida para o desenvolvimento da aplicação seguindo o padrão MVC (Model-View-Controller).
-
-PostgreSQL como banco de dados relacional, garantindo integridade e consistência dos dados armazenados.
-
-Devise para autenticação de usuários, oferecendo um sistema seguro e personalizável de gerenciamento de contas.
-
-Bootstrap para o frontend, proporcionando uma interface responsiva e moderna com componentes visuais consistentes.
-
-Turbo e Stimulus para interatividade no lado do cliente, permitindo atualizações dinâmicas da interface sem recarregar a página completa.
-
-Docker para containerização, facilitando a implantação e garantindo consistência entre ambientes de desenvolvimento e produção.
-
-Kamal para deploy, simplificando o processo de implantação em ambientes de produção.
-
-RuboCop para análise estática de código, garantindo aderência a padrões de qualidade e estilo.
-
-Brakeman para análise de segurança, identificando potenciais vulnerabilidades no código.
-
-Solid Queue para gerenciamento de jobs em background, permitindo processamento assíncrono de tarefas.
-
-AWS S3 para armazenamento de arquivos, oferecendo uma solução escalável para upload e gerenciamento de documentos.
-
 ## Arquitetura e Estrutura
 
 O Task Manager segue uma arquitetura bem definida, organizada em componentes modulares que facilitam a manutenção e extensão do sistema:
@@ -208,26 +180,6 @@ bundle exec kamal deploy
 
 A aplicação também pode ser implantada no Heroku, como demonstrado pela instância em execução em:
 [task-manager-leo-898e46902197.herokuapp.com](https://task-manager-leo-898e46902197.herokuapp.com/)
-
-## Testes
-
-O Task Manager inclui uma suíte de testes para garantir a qualidade e confiabilidade do código:
-
-### Testes Unitários e de Integração
-
-Execute os testes com:
-
-```bash
-rails test
-```
-
-### Testes do Sistema
-
-Execute os testes do sistema com:
-
-```bash
-rails test:system
-```
 
 ### Análise de Código
 
