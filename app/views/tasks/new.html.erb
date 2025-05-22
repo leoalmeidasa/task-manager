@@ -1,5 +1,4 @@
 <div class="container mt-4">
   <h1><%= t('task.new_task') %></h1>
   <%= render "form", project: @project, task: @task %>
-  <%= link_to t('task.back'), project_tasks_path(@project), class: "btn btn-secondary mt-3" %>
 </div>

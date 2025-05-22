@@ -11,7 +11,7 @@
     </div>
   <% end %>
 
-  <div class="mb-3">
+  <div class="col-6 mb-3">
     <%= form.label :title, t('task.form.title'), class: "form-label" %>
     <%= form.text_field :title, class: "form-control #{'is-invalid' if @task.errors[:title].any?}", required: true %>
     <% @task.errors[:title].each do |msg| %>
@@ -19,7 +19,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
+  <div class="col-6 mb-3">
     <%= form.label :description, t('task.form.description'), class: "form-label" %>
     <%= form.text_area :description, class: "form-control #{'is-invalid' if @task.errors[:description].any?}" %>
     <% @task.errors[:description].each do |msg| %>
@@ -27,7 +27,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
+  <div class="col-6 mb-3">
     <%= form.label :status_id, t('task.form.status'), class: "form-label" %>
     <%= form.collection_select :status_id, Status.all, :id, :name, { prompt: t('task.form.status_prompt') },
                                class: "form-select #{'is-invalid' if @task.errors[:status_id].any?}", required: true %>
@@ -36,7 +36,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
+  <div class="col-6 mb-3">
     <%= form.label :priority_id, t('task.form.priority'), class: "form-label" %>
     <%= form.collection_select :priority_id, Priority.all, :id, :level, { prompt: t('task.form.priority_prompt') },
                                class: "form-select #{'is-invalid' if @task.errors[:priority_id].any?}", required: true %>
@@ -45,7 +45,7 @@
     <% end %>
   </div>
 
-  <div class="mb-3">
+  <div class="col-6 mb-3">
     <%= form.label :due_date, t('task.form.due_date'), class: "form-label" %>
     <%= form.date_field :due_date, class: "form-control #{'is-invalid' if @task.errors[:due_date].any?}", required: true %>
     <% @task.errors[:due_date].each do |msg| %>
@@ -59,7 +59,7 @@
     <%= form.hidden_field :user_id, value: current_user&.id %>
   </div>
 
-  <div class="mb-3">
+  <div class="col-6 mb-3">
     <%= form.label :attachments, t('task.form.attachments'), class: "form-label" %>
     <%= form.file_field :attachments, multiple: true, class: "form-control #{'is-invalid' if @task.errors[:attachments].any?}" %>
     <% @task.errors[:attachments].each do |msg| %>
@@ -67,8 +67,12 @@
     <% end %>
   </div>
 
-  <div class="text-end">
-    <%= form.submit t('task.form.submit'), class: "btn btn-primary" %>
+  <div class="row justify-content mt-3 gap-2">
+    <div class="col-auto">
+      <%= form.submit t('task.form.submit'), class: "btn btn-primary" %>
+    </div>
+    <div class="col-auto">
+      <%= link_to t('task.back'), project_tasks_path(@project), class: "btn btn-secondary" %>
+    </div>
   </div>
-
 <% end %>
