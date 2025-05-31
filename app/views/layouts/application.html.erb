@@ -155,14 +155,14 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
         <!-- Language Selector -->
-        <li class="nav-item dropdown">
-          <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
-            <i class="bi bi-globe"></i> <%= t('app.language') %>
-          </a>
-          <ul class="dropdown-menu dropdown-menu-end">
-            <li><%= link_to t('app.english'), { locale: :en }, class: "dropdown-item #{'active' if I18n.locale == :en}" %></li>
-            <li><%= link_to t('app.portuguese'), { locale: :pt }, class: "dropdown-item #{'active' if I18n.locale == :pt}" %></li>
-          </ul>
+        <li class="nav-item d-flex align-items-center">
+          <%= link_to({ locale: :pt }, class: "btn btn-outline-light btn-sm me-2 language-btn #{'active' if I18n.locale == :pt}", data: { lang: 'pt' }) do %>
+            <img src="https://flagcdn.com/w20/br.png" alt="Português" class="flag-img">
+          <% end %>
+  
+          <%= link_to({ locale: :en }, class: "btn btn-outline-light btn-sm language-btn #{'active' if I18n.locale == :en}", data: { lang: 'en' }) do %>
+            <img src="https://flagcdn.com/w20/us.png" alt="English" class="flag-img">
+          <% end %>
         </li>
         <% if user_signed_in? %>
           <li class="nav-item dropdown">
