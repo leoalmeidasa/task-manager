@@ -1,9 +1,13 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="<%= I18n.locale %>">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>App Title</title>
+  <title><%= t('app.title') %></title>
+  <%= csrf_meta_tags %>
+  <%= csp_meta_tag %>
+  <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
+  <%= javascript_include_tag "application", "data-turbo-track": "reload", defer: true %>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
   <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.0/font/bootstrap-icons.css" rel="stylesheet">
   <style>
@@ -98,6 +102,8 @@
           width: 100%;
           transition: margin-left 0.3s ease-in-out;
           min-height: calc(100vh - 56px);
+          display: flex;
+          flex-direction: column;
       }
 
       /* Desktop sidebar behavior */
@@ -144,6 +150,9 @@
       .main-container {
           min-height: calc(100vh - 56px - 72px);
           padding: clamp(15px, 4vw, 30px);
+          flex: 1;
+          display: flex;
+          flex-direction: column;
       }
 
       /* Card responsive improvements */
@@ -207,11 +216,23 @@
           background: rgba(33, 37, 41, 0.95) !important;
           backdrop-filter: blur(10px);
           margin-top: auto;
+          width: 100%;
+          flex-shrink: 0;
+          position: relative;
+          z-index: 1;
       }
 
       footer p {
           font-size: clamp(0.8rem, 2vw, 1rem);
           margin: 0;
+          padding: clamp(10px, 2vw, 15px);
+      }
+
+      /* Garantir que o footer não saia da tela */
+      footer .container {
+          width: 100%;
+          max-width: 100%;
+          padding: 0 clamp(10px, 3vw, 20px);
       }
 
       /* Sidebar toggle button responsive */
@@ -351,15 +372,16 @@
     <button type="button" id="sidebarCollapse" class="btn btn-primary">
       <i class="bi bi-list"></i>
     </button>
-    <a class="navbar-brand ms-2 ms-md-3" href="/"><%= t('app.title') %></a>
+    <a class="navbar-brand ms-3" href="/"><%= t('app.title') %></a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <!-- Language Selector -->
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="languageDropdown" role="button" data-bs-toggle="dropdown">
-            <i class="bi bi-globe"></i> <span class="d-none d-md-inline"><%= t('app.language') %></span>
+            <i class="bi bi-globe"></i> <%= t('app.language') %>
           </a>
           <ul class="dropdown-menu dropdown-menu-end">
             <li><%= link_to t('app.english'), { locale: :en }, class: "dropdown-item #{'active' if I18n.locale == :en}" %></li>
@@ -426,20 +448,20 @@
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     <% end %>
+
     <!-- Main Content -->
-    <div class="row justify-content-center">
+    <div class="row justify-content-center flex-grow-1">
       <div class="col-12 col-lg-10 col-xl-8">
         <%= yield %>
       </div>
     </div>
+    <!-- Footer -->
+    <footer class="bg-dark text-white text-center py-2">
+      <div class="container-fluid">
+        <p class="mb-0">© <%= Time.now.year %> <%= t('app.title') %>. <%= t('app.footer') %></p>
+      </div>
+    </footer>
   </div>
-
-  <!-- Footer -->
-  <footer class="bg-dark text-white text-center py-3 mt-auto">
-    <div class="container">
-      <p class="mb-0">© <%= Time.now.year %> <%= t('app.title') %>. <%= t('app.footer') %></p>
-    </div>
-  </footer>
 </div>
 
 <!-- Bootstrap JS -->
@@ -454,66 +476,17 @@
         const sidebarCollapse = document.getElementById('sidebarCollapse');
         const overlay = document.querySelector('.overlay');
 
-        function toggleSidebar() {
+        sidebarCollapse.addEventListener('click', function() {
             sidebar.classList.toggle('active');
             content.classList.toggle('active');
             overlay.classList.toggle('active');
-        }
-
-        sidebarCollapse.addEventListener('click', toggleSidebar);
+        });
 
         // Fechar sidebar ao clicar no overlay (em dispositivos móveis)
         overlay.addEventListener('click', function() {
             sidebar.classList.remove('active');
             content.classList.remove('active');
             overlay.classList.remove('active');
-        });
-
-        // Fechar sidebar ao redimensionar para desktop
-        window.addEventListener('resize', function() {
-            if (window.innerWidth >= 992) {
-                overlay.classList.remove('active');
-            }
-        });
-
-        // Keyboard navigation support
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape' && sidebar.classList.contains('active')) {
-                sidebar.classList.remove('active');
-                content.classList.remove('active');
-                overlay.classList.remove('active');
-            }
-        });
-
-        // Touch gestures for mobile
-        let startX = 0;
-        let startY = 0;
-
-        document.addEventListener('touchstart', function(e) {
-            startX = e.touches[0].clientX;
-            startY = e.touches[0].clientY;
-        });
-
-        document.addEventListener('touchmove', function(e) {
-            if (!startX || !startY) return;
-
-            let xDiff = startX - e.touches[0].clientX;
-            let yDiff = startY - e.touches[0].clientY;
-
-            if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                if (xDiff > 50 && sidebar.classList.contains('active')) {
-                    // Swipe left to close sidebar
-                    sidebar.classList.remove('active');
-                    content.classList.remove('active');
-                    overlay.classList.remove('active');
-                } else if (xDiff < -50 && !sidebar.classList.contains('active') && startX < 50) {
-                    // Swipe right from edge to open sidebar
-                    toggleSidebar();
-                }
-            }
-
-            startX = 0;
-            startY = 0;
         });
 
         // Inicializar tooltips do Bootstrap
@@ -527,24 +500,6 @@
         popoverTriggerList.map(function(popoverTriggerEl) {
             return new bootstrap.Popover(popoverTriggerEl);
         });
-
-        // Lazy loading simulation for images
-        if ('IntersectionObserver' in window) {
-            const imageObserver = new IntersectionObserver((entries, observer) => {
-                entries.forEach(entry => {
-                    if (entry.isIntersecting) {
-                        const img = entry.target;
-                        img.src = img.dataset.src;
-                        img.classList.remove('lazy');
-                        imageObserver.unobserve(img);
-                    }
-                });
-            });
-
-            document.querySelectorAll('img[data-src]').forEach(img => {
-                imageObserver.observe(img);
-            });
-        }
     });
 </script>
 </body>
