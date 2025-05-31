@@ -454,13 +454,13 @@
       <div class="col-12 col-lg-10 col-xl-8">
         <%= yield %>
       </div>
+      <!-- Footer -->
+      <footer class="bg-dark text-white text-center py-2">
+        <div class="container-fluid">
+          <p class="mb-0">© <%= Time.now.year %> <%= t('app.title') %>. <%= t('app.footer') %></p>
+        </div>
+      </footer>
     </div>
-    <!-- Footer -->
-    <footer class="bg-dark text-white text-center py-2">
-      <div class="container-fluid">
-        <p class="mb-0">© <%= Time.now.year %> <%= t('app.title') %>. <%= t('app.footer') %></p>
-      </div>
-    </footer>
   </div>
 </div>
 
