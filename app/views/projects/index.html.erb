@@ -42,7 +42,10 @@
                   <%= link_to edit_project_path(project), class: 'btn btn-sm btn-outline-secondary' do %>
                     <i class="bi bi-pencil"></i>
                   <% end %>
-                  <%= link_to project, method: :delete, data: { turbo_method: :delete, turbo_confirm: t('projects.delete_confirmation') }, class: 'btn btn-sm btn-outline-danger' do %>
+                  <%= button_to project_path(project), 
+                      method: :delete,
+                      onclick: "return confirm('#{t('projects.delete_confirmation', name: project.name)}')",
+                      class: 'btn btn-sm btn-outline-danger' do %>
                     <i class="bi bi-trash"></i>
                   <% end %>
                 </div>

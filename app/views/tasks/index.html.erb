@@ -48,7 +48,7 @@
                     <% end %>
                     <%= button_to project_task_path(@project, task),
                                   method: :delete,
-                                  data: { confirm: t('task.delete_confirm'), turbo: false },
+                                  onclick: "return confirm('#{t('task.delete_confirm', name: task.title)}')",
                                   form: { class: 'd-inline' },
                                   class: 'btn btn-sm btn-outline-danger d-inline-flex align-items-center',
                                   aria: { label: t('task.delete_aria', title: task.title) } do %>
